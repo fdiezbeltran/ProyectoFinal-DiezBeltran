@@ -52,8 +52,8 @@ public class Enemy : MonoBehaviour
     public IEnumerator HurtKnockback()
     {    
         sp.color = newColor;
-        var dir = playerController.swordPoint.position - transform.position;
-        rb.velocity = dir.normalized * knockbackVelocity;
+        //var dir = playerController.swordPoint.position - transform.position;
+        //rb.velocity = dir.normalized * knockbackVelocity;
         yield return new WaitForSeconds(disarmTime);
         sp.color = Color.white;
     }
@@ -84,18 +84,18 @@ public class Enemy : MonoBehaviour
         switch (Type)
         {
             case EnemyType.Stand:
-                Debug.Log("Esta parado, no lo jodas");
+                rb.velocity = new Vector2(0,0);
             break;
 
             case EnemyType.Patrol:
                 if(patrolTime < 5)
                 {
-                    rb.velocity = new Vector2(1, rb.velocity.y);
+                    rb.velocity = new Vector2(-1, rb.velocity.y);
                     patrolTime += Time.deltaTime;
                 }
                 if(patrolTime > 5)
                 {
-                    rb.velocity = new Vector2(-1, rb.velocity.y);
+                    rb.velocity = new Vector2(1, rb.velocity.y);
                     patrolTime += Time.deltaTime;
                 }
                 if(patrolTime >10)

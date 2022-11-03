@@ -123,7 +123,7 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
         }
-        if (context.performed && airTime < 0.1f && !isJumping && !isBlocking)
+        if (context.performed && airTime < 0.075f && !isJumping && !isBlocking)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
         }
@@ -264,7 +264,7 @@ public class PlayerController : MonoBehaviour
     [Space]
     [Header("Player Damage")]
 
-    public Transform respawnPoint;
+    public Transform checkPoint;
     Color newColor = new Color(1f, 0.5f, 0.5f, 1f);
     private Vector3 enemyPosition;
 
@@ -340,7 +340,9 @@ public class PlayerController : MonoBehaviour
         attackBlocked = false;   
     }
     public void Die()
-    {
+    {   
+        canMove = false;
+        animator.SetFloat("horizontalAnim", 0f);
         animator.SetBool("IsDead", true);
         //this.enabled = false;
         rb.velocity = Vector3.zero;
@@ -348,7 +350,9 @@ public class PlayerController : MonoBehaviour
     }
     public void Respawn()
     {
-        transform.position = respawnPoint.transform.position;
+        transform.position = checkPoint.transform.position;
+        canMove = true;
+        animator.SetFloat("horizontalAnim", 0f);
         animator.SetBool("IsDead", false);
         currentHealth = playerMaxHealth;
     }
