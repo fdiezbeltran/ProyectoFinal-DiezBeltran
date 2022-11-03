@@ -15,8 +15,8 @@ public class PlayerController : MonoBehaviour
     //Inicializar valores
     void Start()
     {
-        currentHealth = playerMaxHealth;
-        speed = movementSpeed;
+        InitializeHealth();
+        InitializeSpeed();
     }
 
     //Manejar metodos
@@ -29,8 +29,10 @@ public class PlayerController : MonoBehaviour
     //Manejar metodos con fisicas
     void FixedUpdate() 
     {
+        SetJumpAnimator();
         GroundCheck();
-        animator.SetFloat("jumpVelocity", rb.velocity.y);
+        HitByEnemy();
+        BlockAttack();
     }
 
 #region PlayerStats
@@ -47,7 +49,16 @@ public class PlayerController : MonoBehaviour
     public float bowingSpeed = 4; //Define la velocidad mientras se dispara el arco
     public int attackDamage = 25; //Define el danio que hace
     public float attackRate = 1.5f; //Define el tiempo para atacar de nuevo
-      
+
+    void InitializeHealth()
+    {
+        currentHealth = playerMaxHealth;
+    }
+    void InitializeSpeed()
+    {
+        speed = movementSpeed;
+    }
+
 #endregion
 
 #region PlayerMovement
@@ -88,7 +99,6 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(lerpedVelocity, rb.velocity.y);
         }
     }
-
     void HandleFlip()
     {
             if (!isFacingRight && moveDirection > 0f && !isBlocking)
@@ -107,7 +117,6 @@ public class PlayerController : MonoBehaviour
         localScale.x *= -1f;
         transform.localScale = localScale;
     }    
-
     public void Jump(InputAction.CallbackContext context)
     {
         if (context.performed && isGrounded && !isBlocking)
@@ -123,8 +132,10 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
     }
-    //public Vector2 groundRange;
-
+    void SetJumpAnimator()
+    {
+        animator.SetFloat("jumpVelocity", rb.velocity.y);
+    }
     void GroundCheck()
     {
         RaycastHit2D raycastGround1 = Physics2D.Raycast(groundCheck1.position, Vector2.down, 0.01f, groundLayer);
@@ -155,7 +166,6 @@ public class PlayerController : MonoBehaviour
             jumpCollider.enabled = false;
         }
     }
-
 #endregion
 
 #region PlayerCombat
@@ -181,7 +191,6 @@ public class PlayerController : MonoBehaviour
     private bool isBlocking = false;
     private bool canMove = true;
     private bool attackBlocked;
-    private Vector3 enemyPosition;
 
     //Espada
     public void Attack(InputAction.CallbackContext context)
@@ -202,8 +211,6 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    
-
     //Escudo
     public void Secondary(InputAction.CallbackContext context)
     {
@@ -220,20 +227,6 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("IsBlocking", isBlocking);
         }
     }
-    
-    public IEnumerator BlockKnockback()
-    {
-        canMove = false;
-        attackBlocked = true;
-        var dir = center.position - enemyPosition;
-        rb.velocity = dir.normalized * knockbackBlockVelocity;
-        moveDirection = 0;
-        yield return new WaitForSeconds(disarmTime);
-        rb.velocity = Vector3.zero;
-        canMove = true;
-        attackBlocked = false;   
-    }
-
     //Arco
     public void Bow(InputAction.CallbackContext context)
     {
@@ -265,8 +258,107 @@ public class PlayerController : MonoBehaviour
             speed = movementSpeed;
         }
     }
-    
-
-
 #endregion
+
+#region PlayerDamage
+    [Space]
+    [Header("Player Damage")]
+
+    public Transform respawnPoint;
+    Color newColor = new Color(1f, 0.5f, 0.5f, 1f);
+    private Vector3 enemyPosition;
+
+    //Golpeado por enemigo
+    public void HitByEnemy()
+    {
+        if (canMove && !attackBlocked)
+        {
+            Collider2D[] getHit = Physics2D.OverlapBoxAll(defensePoint.position, defenseRange, 0f, enemyLayer);
+
+            foreach (Collider2D enemy in getHit)
+            {
+                TakeDamage(enemy.GetComponent<Enemy>().attackDamage);
+                enemyPosition = enemy.GetComponent<Enemy>().transform.position;
+            }
+
+        }
+    }
+    //Descontar danio
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        if (currentHealth > 0)
+        {
+        animator.SetTrigger("Hurt");
+        StartCoroutine(HurtKnockback());
+        }else if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+    //Limitar el movimiento y empujar para atras al player
+    public IEnumerator HurtKnockback()
+    {    
+        isBlocking = false;
+        canMove = false;
+        sp.color = newColor;
+        var dir = center.position - enemyPosition;
+        rb.velocity = dir.normalized * knockbackVelocity;
+        moveDirection = 0;
+        yield return new WaitForSeconds(disarmTime);
+        rb.velocity = Vector3.zero;
+        animator.SetFloat("horizontalAnim", 0f);
+        sp.color = Color.white;
+        canMove = true;
+    }
+    //Bloquear con el escudo
+    public void BlockAttack()
+    {
+        if(isBlocking)
+        {
+            Collider2D[] getBlock = Physics2D.OverlapBoxAll(blockPoint.position, blockRange, 0f, enemyLayer);
+
+            foreach (Collider2D enemy in getBlock)
+            {
+                enemyPosition = enemy.GetComponent<Enemy>().transform.position;
+                StartCoroutine(BlockKnockback());
+            }
+        }
+    }
+    //Retroceder por bloqueo
+    public IEnumerator BlockKnockback()
+    {
+        canMove = false;
+        attackBlocked = true;
+        var dir = center.position - enemyPosition;
+        rb.velocity = dir.normalized * knockbackBlockVelocity;
+        moveDirection = 0;
+        yield return new WaitForSeconds(disarmTime);
+        rb.velocity = Vector3.zero;
+        animator.SetFloat("horizontalAnim", 0f);
+        canMove = true;
+        attackBlocked = false;   
+    }
+    public void Die()
+    {
+        animator.SetBool("IsDead", true);
+        //this.enabled = false;
+        rb.velocity = Vector3.zero;
+        Invoke("Respawn", 1f);
+    }
+    public void Respawn()
+    {
+        transform.position = respawnPoint.transform.position;
+        animator.SetBool("IsDead", false);
+        currentHealth = playerMaxHealth;
+    }
+#endregion
+
+//Esto es para ver radios
+    void OnDrawGizmosSelected() {
+        Gizmos.DrawWireCube(blockPoint.position, blockRange);
+        Gizmos.DrawWireCube(defensePoint.position, defenseRange);
+        Gizmos.DrawWireSphere(swordPoint.position, swordRange);
+        Gizmos.DrawWireSphere(center.position, 0.5f);
+    }
 }

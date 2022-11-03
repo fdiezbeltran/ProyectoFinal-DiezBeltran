@@ -15,20 +15,20 @@ public class Enemy : MonoBehaviour
     public int attackDamage = 20;
     public Vector2 knockbackVelocity;
     public float disarmTime;
-    public Vector2 leftMove;
-    public Vector2 rightMove;
     Color newColor = new Color(1f, 0.5f, 0.5f, 1f);
 
     void Start()
     {
         currentHealth = maxHealth;
-                rb.velocity = new Vector2(-1, 0);
-
+        //rb.velocity = new Vector2(-1, 0);
     }
 
     void Update() 
     {
+        DefineEnemyType();
     }
+
+#region PlayerInteraction
 
     private void OnTriggerEnter2D(Collider2D collision) 
     {
@@ -38,21 +38,17 @@ public class Enemy : MonoBehaviour
             
         }
     }
-
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
 
-        animator.SetTrigger("isHurted");
+        animator.SetTrigger("GetHurt");
         StartCoroutine(HurtKnockback());
-
-
         if (currentHealth <=0)
         {
             Die();
         }
     }
-
     public IEnumerator HurtKnockback()
     {    
         sp.color = newColor;
@@ -60,23 +56,64 @@ public class Enemy : MonoBehaviour
         rb.velocity = dir.normalized * knockbackVelocity;
         yield return new WaitForSeconds(disarmTime);
         sp.color = Color.white;
-        //rb.velocity = Vector3.zero;
     }
-
     void Die()
     {
         animator.SetBool("IsDead", true);
-
-        GetComponent<Collider2D>().enabled = false;
-        
-        DestroyGameObject();
-
+        Destroy(gameObject,1);
     }
+#endregion
 
-    void DestroyGameObject()
+#region EnemyMovement
+
+    public enum EnemyType
     {
-        Destroy(gameObject);
+        Stand,
+        Patrol,
+        Chase
     }
-    //Causar danio
+    
+    [Space]
+    [Header("EnemyMovement")]
+    
+    public EnemyType Type;
+    public float patrolTime;
 
+    public void DefineEnemyType()
+    {
+        switch (Type)
+        {
+            case EnemyType.Stand:
+                Debug.Log("Esta parado, no lo jodas");
+            break;
+
+            case EnemyType.Patrol:
+                if(patrolTime < 5)
+                {
+                    rb.velocity = new Vector2(1, rb.velocity.y);
+                    patrolTime += Time.deltaTime;
+                }
+                if(patrolTime > 5)
+                {
+                    rb.velocity = new Vector2(-1, rb.velocity.y);
+                    patrolTime += Time.deltaTime;
+                }
+                if(patrolTime >10)
+                {
+                    patrolTime = 0;
+                }
+
+            break;
+
+            case EnemyType.Chase:
+                Debug.Log("deberia perseguirte");
+            break;
+
+            default:
+
+            break;
+        }
+    }
+
+#endregion
 }
