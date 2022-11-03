@@ -34,16 +34,9 @@ AnimationClip:
     script: {fileID: 0}
   - curve:
     - time: 0
-      value: {fileID: -396530371, guid: e1e327b075b70524ca698d19afe073d3, type: 3}
+      value: {fileID: -790447261, guid: 1aec4df641a016543a3de7c168ef2e59, type: 3}
     attribute: m_Sprite
     path: Shield
-    classID: 212
-    script: {fileID: 0}
-  - curve:
-    - time: 0
-      value: {fileID: -171765811, guid: 671fb88b63356a8409ffe02e12b077b6, type: 3}
-    attribute: m_Sprite
-    path: Bow
     classID: 212
     script: {fileID: 0}
   m_SampleRate: 60
@@ -74,18 +67,10 @@ AnimationClip:
       typeID: 212
       customType: 23
       isPPtrCurve: 1
-    - serializedVersion: 2
-      path: 2690323275
-      attribute: 0
-      script: {fileID: 0}
-      typeID: 212
-      customType: 23
-      isPPtrCurve: 1
     pptrCurveMapping:
     - {fileID: -837501657, guid: 1ece5a729ca435342b8614f270820899, type: 3}
     - {fileID: 1456423774, guid: 2d2b9754f1b054d46b17c0436158c009, type: 3}
-    - {fileID: -396530371, guid: e1e327b075b70524ca698d19afe073d3, type: 3}
-    - {fileID: -171765811, guid: 671fb88b63356a8409ffe02e12b077b6, type: 3}
+    - {fileID: -790447261, guid: 1aec4df641a016543a3de7c168ef2e59, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

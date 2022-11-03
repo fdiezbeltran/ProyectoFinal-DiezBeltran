@@ -1109,7 +1109,7 @@ GameObject:
   - component: {fileID: 1927322770}
   m_Layer: 6
   m_Name: Frente
-  m_TagString: Untagged
+  m_TagString: Level
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2011,7 +2011,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &4955453498947084463
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2114,6 +2114,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  speed: 0
   arrowPrefab: {fileID: 5558446859056942437, guid: e90b55af33e245d419dbccf212b10d61, type: 3}
   swordPoint: {fileID: 4955453498201830851}
   defensePoint: {fileID: 4955453498168445870}

@@ -12,8 +12,6 @@ public class PlayerController : MonoBehaviour
     public SpriteRenderer sp;
     public Collider2D jumpCollider;
     
-    
-    
     //Inicializar valores
     void Start()
     {
@@ -59,17 +57,14 @@ public class PlayerController : MonoBehaviour
     public Transform groundCheck1;
     public Transform groundCheck2;
     public LayerMask groundLayer;
-    
-    
+
     private float moveDirection;
     private bool isFacingRight = true;
-    private float speed;
+    public float speed;
     private bool isGrounded;
     private float airTime;
     private bool isJumping;
     private float jumpingPower = 16; //Fuerza del salto
-    private bool isBlocking = false;
-    //private bool canMove = true;
     
     public void Move(InputAction.CallbackContext context)
     {
@@ -117,9 +112,7 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed && isGrounded && !isBlocking)
         {
-            Debug.Log("DEBERIAS SALTAR LA CONCHA DE TU MADRE");
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
-            
         }
         if (context.performed && airTime < 0.1f && !isJumping && !isBlocking)
         {
@@ -136,7 +129,7 @@ public class PlayerController : MonoBehaviour
     {
         RaycastHit2D raycastGround1 = Physics2D.Raycast(groundCheck1.position, Vector2.down, 0.01f, groundLayer);
         RaycastHit2D raycastGround2 = Physics2D.Raycast(groundCheck2.position, Vector2.down, 0.01f, groundLayer);
-    
+
         animator.SetBool("IsGroundedAnim", isGrounded);
 
         if (raycastGround1 || raycastGround2)
@@ -185,8 +178,7 @@ public class PlayerController : MonoBehaviour
     public Vector2 knockbackBlockVelocity; //Define la fuerza del rechazo al bloquear
 
     float nextAttackTime = 0f;
-    //private bool isBlocking = false;
-    private bool isBarrier = false;
+    private bool isBlocking = false;
     private bool canMove = true;
     private bool attackBlocked;
     private Vector3 enemyPosition;
@@ -217,15 +209,15 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed && isGrounded)
         {
+            speed = blockingSpeed;
             isBlocking = true;
             animator.SetBool("IsBlocking", isBlocking);
-            speed = blockingSpeed;
         }
         if (context.canceled && isBlocking)
         {
+            speed = movementSpeed;
             isBlocking = false;
             animator.SetBool("IsBlocking", isBlocking);
-            speed = movementSpeed;
         }
     }
     

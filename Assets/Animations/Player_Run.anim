@@ -29,47 +29,20 @@ AnimationClip:
     script: {fileID: 0}
   - curve:
     - time: 0
-      value: {fileID: 1947004328, guid: e5b45054d076b184687c53e94e1992cb, type: 3}
+      value: {fileID: 461795196, guid: 2d2b9754f1b054d46b17c0436158c009, type: 3}
     - time: 0.16666667
-      value: {fileID: 388456088, guid: e5b45054d076b184687c53e94e1992cb, type: 3}
+      value: {fileID: 1382353510, guid: 2d2b9754f1b054d46b17c0436158c009, type: 3}
     attribute: m_Sprite
     path: Sword
     classID: 212
     script: {fileID: 0}
   - curve:
     - time: 0
-      value: {fileID: -862185585, guid: e1e327b075b70524ca698d19afe073d3, type: 3}
+      value: {fileID: 2072794702, guid: 1aec4df641a016543a3de7c168ef2e59, type: 3}
     - time: 0.16666667
-      value: {fileID: 1868582638, guid: e1e327b075b70524ca698d19afe073d3, type: 3}
+      value: {fileID: 624312763, guid: 1aec4df641a016543a3de7c168ef2e59, type: 3}
     attribute: m_Sprite
     path: Shield
-    classID: 212
-    script: {fileID: 0}
-  - curve:
-    - time: 0
-      value: {fileID: -336028012, guid: 671fb88b63356a8409ffe02e12b077b6, type: 3}
-    - time: 0.16666667
-      value: {fileID: -236593105, guid: 671fb88b63356a8409ffe02e12b077b6, type: 3}
-    attribute: m_Sprite
-    path: Bow
-    classID: 212
-    script: {fileID: 0}
-  - curve:
-    - time: 0
-      value: {fileID: 70412124, guid: 3524ccba4716a314d8f28f36ec47922c, type: 3}
-    - time: 0.16666667
-      value: {fileID: -1971940958, guid: 3524ccba4716a314d8f28f36ec47922c, type: 3}
-    attribute: m_Sprite
-    path: Staff
-    classID: 212
-    script: {fileID: 0}
-  - curve:
-    - time: 0
-      value: {fileID: -1330203624, guid: f45a331d4c9b6e343add8097bf0cfdf4, type: 3}
-    - time: 0.16666667
-      value: {fileID: 552732879, guid: f45a331d4c9b6e343add8097bf0cfdf4, type: 3}
-    attribute: m_Sprite
-    path: Axe
     classID: 212
     script: {fileID: 0}
   m_SampleRate: 6
@@ -100,40 +73,13 @@ AnimationClip:
       typeID: 212
       customType: 23
       isPPtrCurve: 1
-    - serializedVersion: 2
-      path: 2690323275
-      attribute: 0
-      script: {fileID: 0}
-      typeID: 212
-      customType: 23
-      isPPtrCurve: 1
-    - serializedVersion: 2
-      path: 2209340566
-      attribute: 0
-      script: {fileID: 0}
-      typeID: 212
-      customType: 23
-      isPPtrCurve: 1
-    - serializedVersion: 2
-      path: 1411864780
-      attribute: 0
-      script: {fileID: 0}
-      typeID: 212
-      customType: 23
-      isPPtrCurve: 1
     pptrCurveMapping:
     - {fileID: 1316700331, guid: 1ece5a729ca435342b8614f270820899, type: 3}
     - {fileID: -758843449, guid: 1ece5a729ca435342b8614f270820899, type: 3}
-    - {fileID: 1947004328, guid: e5b45054d076b184687c53e94e1992cb, type: 3}
-    - {fileID: 388456088, guid: e5b45054d076b184687c53e94e1992cb, type: 3}
-    - {fileID: -862185585, guid: e1e327b075b70524ca698d19afe073d3, type: 3}
-    - {fileID: 1868582638, guid: e1e327b075b70524ca698d19afe073d3, type: 3}
-    - {fileID: -336028012, guid: 671fb88b63356a8409ffe02e12b077b6, type: 3}
-    - {fileID: -236593105, guid: 671fb88b63356a8409ffe02e12b077b6, type: 3}
-    - {fileID: 70412124, guid: 3524ccba4716a314d8f28f36ec47922c, type: 3}
-    - {fileID: -1971940958, guid: 3524ccba4716a314d8f28f36ec47922c, type: 3}
-    - {fileID: -1330203624, guid: f45a331d4c9b6e343add8097bf0cfdf4, type: 3}
-    - {fileID: 552732879, guid: f45a331d4c9b6e343add8097bf0cfdf4, type: 3}
+    - {fileID: 461795196, guid: 2d2b9754f1b054d46b17c0436158c009, type: 3}
+    - {fileID: 1382353510, guid: 2d2b9754f1b054d46b17c0436158c009, type: 3}
+    - {fileID: 2072794702, guid: 1aec4df641a016543a3de7c168ef2e59, type: 3}
+    - {fileID: 624312763, guid: 1aec4df641a016543a3de7c168ef2e59, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

@@ -33,13 +33,13 @@ AnimationClip:
     script: {fileID: 0}
   - curve:
     - time: 0
-      value: {fileID: 1731775979, guid: 671fb88b63356a8409ffe02e12b077b6, type: 3}
+      value: {fileID: -1436454095, guid: 2f59cd70686749b409b839e98ec4f878, type: 3}
     - time: 0.041666668
-      value: {fileID: 553101663, guid: 671fb88b63356a8409ffe02e12b077b6, type: 3}
+      value: {fileID: 483437978, guid: 2f59cd70686749b409b839e98ec4f878, type: 3}
     - time: 0.083333336
-      value: {fileID: 1672603961, guid: 671fb88b63356a8409ffe02e12b077b6, type: 3}
+      value: {fileID: -1238448886, guid: 2f59cd70686749b409b839e98ec4f878, type: 3}
     - time: 0.125
-      value: {fileID: 589150893, guid: 671fb88b63356a8409ffe02e12b077b6, type: 3}
+      value: {fileID: 1845748342, guid: 2f59cd70686749b409b839e98ec4f878, type: 3}
     attribute: m_Sprite
     path: Bow
     classID: 212
@@ -70,10 +70,10 @@ AnimationClip:
     - {fileID: 732701499, guid: 1ece5a729ca435342b8614f270820899, type: 3}
     - {fileID: -1414447852, guid: 1ece5a729ca435342b8614f270820899, type: 3}
     - {fileID: 1713013148, guid: 1ece5a729ca435342b8614f270820899, type: 3}
-    - {fileID: 1731775979, guid: 671fb88b63356a8409ffe02e12b077b6, type: 3}
-    - {fileID: 553101663, guid: 671fb88b63356a8409ffe02e12b077b6, type: 3}
-    - {fileID: 1672603961, guid: 671fb88b63356a8409ffe02e12b077b6, type: 3}
-    - {fileID: 589150893, guid: 671fb88b63356a8409ffe02e12b077b6, type: 3}
+    - {fileID: -1436454095, guid: 2f59cd70686749b409b839e98ec4f878, type: 3}
+    - {fileID: 483437978, guid: 2f59cd70686749b409b839e98ec4f878, type: 3}
+    - {fileID: -1238448886, guid: 2f59cd70686749b409b839e98ec4f878, type: 3}
+    - {fileID: 1845748342, guid: 2f59cd70686749b409b839e98ec4f878, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
