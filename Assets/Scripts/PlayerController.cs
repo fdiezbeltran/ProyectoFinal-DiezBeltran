@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
     public SpriteRenderer sp;
     public Collider2D jumpCollider;
+    public AudioSource audioSource;
     
     //Inicializar valores
     void Start()
@@ -179,13 +180,13 @@ public class PlayerController : MonoBehaviour
     public Transform center;
     public LayerMask enemyLayer;
     
-    public float arrowVelocity; //Define la velocidad a la que viaja la flecha
-    public float swordRange; //Define la distancia de ataque de la espada
-    public Vector2 blockRange; //Define el rango de bloqueo con el escudo
-    public Vector2 defenseRange; //Define el rango en que puede ser atacado
-    public float disarmTime; //Define el tiempo por el que no se puede mover despues de ser golpeado
-    public Vector2 knockbackVelocity; //Define la fuerza del rechazo al ser daniado
-    public Vector2 knockbackBlockVelocity; //Define la fuerza del rechazo al bloquear
+    public float arrowVelocity = 15; //Define la velocidad a la que viaja la flecha
+    public float swordRange = 0.6f; //Define la distancia de ataque de la espada
+    public Vector2 blockRange = new Vector2(0.46f, 0.91f); //Define el rango de bloqueo con el escudo
+    public Vector2 defenseRange = new Vector2(0.66f, 0.97f); //Define el rango en que puede ser atacado
+    public float disarmTime = 0.5f; //Define el tiempo por el que no se puede mover despues de ser golpeado
+    public Vector2 knockbackVelocity = new Vector2(5, 10); //Define la fuerza del rechazo al ser daniado
+    public Vector2 knockbackBlockVelocity = new Vector2(3, 2); //Define la fuerza del rechazo al bloquear
 
     float nextAttackTime = 0f;
     private bool isBlocking = false;
@@ -200,6 +201,7 @@ public class PlayerController : MonoBehaviour
             if (Time.time >= nextAttackTime)
             {
                 animator.SetTrigger("AttackSword");
+                PlaySound(clipSword);
                 Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(swordPoint.position, swordRange, enemyLayer);
 
                 foreach (Collider2D enemy in hitEnemies)
@@ -237,6 +239,7 @@ public class PlayerController : MonoBehaviour
                 if(isFacingRight)
                 {
                     animator.SetTrigger("AttackBow");
+                    PlaySound(clipArrow);
                     GameObject arrow = Instantiate(arrowPrefab, center.position, Quaternion.identity);
                     arrow.GetComponent<Rigidbody2D>().velocity = new Vector2(arrowVelocity, 0.0f);
                     Destroy(arrow, 2f);
@@ -245,6 +248,7 @@ public class PlayerController : MonoBehaviour
                 }else
                 {
                     animator.SetTrigger("AttackBow");
+                    PlaySound(clipArrow);
                     GameObject arrow = Instantiate(arrowPrefab, center.position, Quaternion.identity);
                     arrow.GetComponent<Rigidbody2D>().velocity = new Vector2(-arrowVelocity, 0.0f);
                     arrow.transform.Rotate(0f, 0f, 180f);
@@ -260,9 +264,9 @@ public class PlayerController : MonoBehaviour
     }
 #endregion
 
-#region PlayerDamage
+#region PlayerInteract
     [Space]
-    [Header("Player Damage")]
+    [Header("Player Interact")]
 
     public Transform checkPoint;
     Color newColor = new Color(1f, 0.5f, 0.5f, 1f);
@@ -344,6 +348,7 @@ public class PlayerController : MonoBehaviour
         canMove = false;
         animator.SetFloat("horizontalAnim", 0f);
         animator.SetBool("IsDead", true);
+        PlaySound(clipDie);
         //this.enabled = false;
         rb.velocity = Vector3.zero;
         Invoke("Respawn", 1f);
@@ -356,6 +361,23 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("IsDead", false);
         currentHealth = playerMaxHealth;
     }
+#endregion
+
+#region PlayerAudio
+    [Space]
+    [Header("Player Audio")]
+
+    public AudioClip clipSword;
+    public AudioClip clipArrow;
+    public AudioClip clipDie;
+
+    public void PlaySound(AudioClip clip)
+    {
+        audioSource.clip = clip;
+        audioSource.Play();
+    }
+
+
 #endregion
 
 //Esto es para ver radios

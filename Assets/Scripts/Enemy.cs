@@ -60,6 +60,7 @@ public class Enemy : MonoBehaviour
     void Die()
     {
         animator.SetBool("IsDead", true);
+        gameObject.GetComponent<BoxCollider2D>().enabled = false;
         Destroy(gameObject,1);
     }
 #endregion
