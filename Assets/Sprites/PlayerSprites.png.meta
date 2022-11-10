@@ -109,7 +109,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 288
+        y: 256
         width: 32
         height: 32
       alignment: 7
@@ -130,7 +130,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 32
-        y: 288
+        y: 256
         width: 32
         height: 32
       alignment: 7
@@ -151,7 +151,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 256
+        y: 224
         width: 32
         height: 32
       alignment: 7
@@ -172,7 +172,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 32
-        y: 256
+        y: 224
         width: 32
         height: 32
       alignment: 7
@@ -193,7 +193,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 224
+        y: 192
         width: 32
         height: 32
       alignment: 7
@@ -214,7 +214,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 192
+        y: 160
         width: 32
         height: 32
       alignment: 7
@@ -237,7 +237,7 @@ TextureImporter:
         x: 0
         y: 128
         width: 64
-        height: 64
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -258,7 +258,7 @@ TextureImporter:
         x: 64
         y: 128
         width: 64
-        height: 64
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -277,7 +277,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 64
+        y: 96
         width: 64
         height: 32
       alignment: 9
@@ -298,7 +298,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 64
+        y: 96
         width: 64
         height: 32
       alignment: 9
@@ -482,6 +482,174 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Player_Run_3
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 224
+        width: 32
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abf785d978253a14db61478c1384e8f1
+      internalID: -330337299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Run_4
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 224
+        width: 32
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b6b021d42e59314fb8f434eaf80738b
+      internalID: -1628760507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Hurt_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 192
+        width: 32
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f543fc4ac3b08e4aab192dc88958cec
+      internalID: -1255637328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Hurt_3
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 192
+        width: 32
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11e8c2d3fdddc974cb76ebe164c7b6ad
+      internalID: 846641064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Die_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 160
+        width: 32
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 682a41e03c1a1cf42a0ffe46756c1782
+      internalID: -1874881064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Die_3
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 160
+        width: 64
+        height: 32
+      alignment: 9
+      pivot: {x: 0.25, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b28a35475e75e43438404502235fe4f7
+      internalID: -1423052033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Sword_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 64
+        height: 32
+      alignment: 9
+      pivot: {x: 0.25, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa1e86d0552b95a4db2300f0eadfec81
+      internalID: -764330487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Sword_4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 64
+        height: 32
+      alignment: 9
+      pivot: {x: 0.25, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 567ee79df01bbf24bb687134932746af
+      internalID: -31805392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -498,16 +666,23 @@ TextureImporter:
       Player_Idle_1: 1170881829
       PlayerSprites_10: -1027349305
       Player_Bow_4: 1713013148
+      Player_Die_2: -1874881064
       PlayerSprites_9: -2081618755
+      Player_Die_3: -1423052033
+      Player_Sword_4: -31805392
+      Player_Run_4: -1628760507
       Player_Bow_2: 732701499
       PlayerSprites_13: -339389733
       PlayerSprites_12: 86857809
       Player_Run_1: 1316700331
+      Player_Hurt_2: -1255637328
       Player_Shield_1: 1621712328
       Player_Jump_1: -837501657
       Player_Shield_4: 179773843
+      Player_Hurt_3: 846641064
       Player_Shield_2: 1444034311
       Player_Run_2: -758843449
+      Player_Sword_3: -764330487
       Player_Die_1: -1731813285
       PlayerSprites_11: 1750786466
       Player_Sword_1: 705498822
@@ -515,6 +690,7 @@ TextureImporter:
       Player_Hurt_1: 1946672005
       Player_Idle_2: -1847244536
       Player_Jump_2: 77737152
+      Player_Run_3: -330337299
       Player_Shield_3: -614467688
       Player_Sword_2: -1375955714
   spritePackingTag: 
