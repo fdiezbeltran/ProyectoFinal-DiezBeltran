@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         HandleFlip();
+        RoofCheck();
     }
 
     //Manejar metodos con fisicas
@@ -47,10 +48,8 @@ public class PlayerController : MonoBehaviour
     public float movementSpeed = 8; //Velocidad a la que corre
     public float blockingSpeed = 4; //Define la velocidad de movimiento mientras bloquea
     public float bowingSpeed = 4; //Define la velocidad mientras se dispara el arco
-    public int attackDamage = 25; //Define el danio que hace con la espada
-    public float attackRate = 1.5f; //Define el tiempo para atacar de nuevo con la espada
-    public int bowDamage = 15; //Define el danio que hace con el arco
-    public float bowAttackRate = 1.5f; //Define el tiempo para atacar de nuevo con el arco
+    public int attackDamage = 25; //Define el danio que hace
+    public float attackRate = 1.5f; //Define el tiempo para atacar de nuevo
 
     void InitializeHealth()
     {
@@ -86,7 +85,6 @@ public class PlayerController : MonoBehaviour
             if (context.performed)
             {
                 moveDirection = context.ReadValue<Vector2>().x;
-                Debug.Log(context.ReadValue<Vector2>());
                 animator.SetFloat("horizontalAnim", moveDirection);
                 rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
             }
@@ -159,7 +157,16 @@ public class PlayerController : MonoBehaviour
             airTime += Time.deltaTime;
         }
     }
-    
+    void RoofCheck()
+    {
+        if(rb.velocity.y > 2f)
+        {
+            jumpCollider.enabled = true;
+        }else
+        {
+            jumpCollider.enabled = false;
+        }
+    }
 #endregion
 
 #region PlayerCombat
@@ -180,11 +187,8 @@ public class PlayerController : MonoBehaviour
     public float disarmTime = 0.5f; //Define el tiempo por el que no se puede mover despues de ser golpeado
     public Vector2 knockbackVelocity = new Vector2(5, 10); //Define la fuerza del rechazo al ser daniado
     public Vector2 knockbackBlockVelocity = new Vector2(3, 2); //Define la fuerza del rechazo al bloquear
-    public float cooldownRate = 0.5f; //Define un minimo de tiempo entre ataques
 
     float nextAttackTime = 0f;
-    float nextBowTime = 0f;
-    float attackGlobalCooldown = 0f;
     private bool isBlocking = false;
     private bool canMove = true;
     private bool attackBlocked;
@@ -194,7 +198,7 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed && !isBlocking)
         {
-            if (Time.time >= nextAttackTime && Time.time >= attackGlobalCooldown)
+            if (Time.time >= nextAttackTime)
             {
                 animator.SetTrigger("AttackSword");
                 PlaySound(clipSword);
@@ -206,7 +210,6 @@ public class PlayerController : MonoBehaviour
                 }
                 
                 nextAttackTime = Time.time + 1f / attackRate;
-                attackGlobalCooldown = Time.time + 1f / cooldownRate;
             }
         }
     }
@@ -231,7 +234,7 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed)
         {            
-            if (Time.time >= nextBowTime && Time.time >= attackGlobalCooldown)
+            if (Time.time >= nextAttackTime)
             {   
                 if(isFacingRight)
                 {
@@ -240,8 +243,7 @@ public class PlayerController : MonoBehaviour
                     GameObject arrow = Instantiate(arrowPrefab, center.position, Quaternion.identity);
                     arrow.GetComponent<Rigidbody2D>().velocity = new Vector2(arrowVelocity, 0.0f);
                     Destroy(arrow, 2f);
-                    nextBowTime = Time.time + 1f / bowAttackRate;
-                    attackGlobalCooldown = Time.time + 1f / cooldownRate;
+                    nextAttackTime = Time.time + 1f / attackRate;
                     speed = bowingSpeed;
                 }else
                 {
@@ -251,8 +253,7 @@ public class PlayerController : MonoBehaviour
                     arrow.GetComponent<Rigidbody2D>().velocity = new Vector2(-arrowVelocity, 0.0f);
                     arrow.transform.Rotate(0f, 0f, 180f);
                     Destroy(arrow, 2f);
-                    nextBowTime = Time.time + 1f / bowAttackRate;
-                    attackGlobalCooldown = Time.time + 1f / cooldownRate;
+                    nextAttackTime = Time.time + 1f / attackRate;
                     speed = bowingSpeed;
                 }
             }
@@ -350,7 +351,7 @@ public class PlayerController : MonoBehaviour
         PlaySound(clipDie);
         //this.enabled = false;
         rb.velocity = Vector3.zero;
-        Invoke("Respawn", 1.5f);
+        Invoke("Respawn", 1f);
     }
     public void Respawn()
     {

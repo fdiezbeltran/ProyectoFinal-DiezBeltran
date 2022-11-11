@@ -66,6 +66,8 @@ AnimationClip:
       value: {fileID: 2069876783, guid: 2f59cd70686749b409b839e98ec4f878, type: 3}
     - time: 0.5
       value: {fileID: -533319875, guid: 2f59cd70686749b409b839e98ec4f878, type: 3}
+    - time: 0.6666667
+      value: {fileID: 0}
     attribute: m_Sprite
     path: Bow
     classID: 212
@@ -122,12 +124,13 @@ AnimationClip:
     - {fileID: -750173649, guid: 2f59cd70686749b409b839e98ec4f878, type: 3}
     - {fileID: 2069876783, guid: 2f59cd70686749b409b839e98ec4f878, type: 3}
     - {fileID: -533319875, guid: 2f59cd70686749b409b839e98ec4f878, type: 3}
+    - {fileID: 0}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.6666667
+    m_StopTime: 0.8333334
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
