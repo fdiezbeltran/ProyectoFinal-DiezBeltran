@@ -630,6 +630,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2453200760233820757, guid: 94724105308d2444889454f1e164ae70, type: 3}
+      propertyPath: maxHealth
+      value: 4000
+      objectReference: {fileID: 0}
+    - target: {fileID: 2453200760233820757, guid: 94724105308d2444889454f1e164ae70, type: 3}
       propertyPath: playerController
       value: 
       objectReference: {fileID: 4955453499013850963}
@@ -73134,13 +73138,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -73216,7 +73220,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4955453498201830848}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.922, y: 0.494, z: 0}
+  m_LocalPosition: {x: 0.355, y: 0.273, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -73356,32 +73360,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &4955453498652161341
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4955453499013850962}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 6200000, guid: 90cb54a4558db01468901637ac2e7f36, type: 2}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.021300197, y: 1.170744}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.5365274, y: 0.40923548}
-  m_EdgeRadius: 0
 --- !u!50 &4955453498652161342
 Rigidbody2D:
   serializedVersion: 4
@@ -73501,7 +73479,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -73520,7 +73498,6 @@ GameObject:
   - component: {fileID: 4955453498652161342}
   - component: {fileID: 4955453498652161343}
   - component: {fileID: 4955453498652161313}
-  - component: {fileID: 4955453498652161341}
   - component: {fileID: 4955453499013850964}
   - component: {fileID: 4955453499013850963}
   m_Layer: 0
@@ -73545,7 +73522,7 @@ MonoBehaviour:
   rb: {fileID: 4955453498652161342}
   animator: {fileID: 4955453498652161343}
   sp: {fileID: 4955453498652161340}
-  jumpCollider: {fileID: 4955453498652161341}
+  jumpCollider: {fileID: 0}
   audioSource: {fileID: 4955453499013850964}
   playerMaxHealth: 100
   currentHealth: 0
@@ -73554,6 +73531,8 @@ MonoBehaviour:
   bowingSpeed: 4
   attackDamage: 25
   attackRate: 1.5
+  bowDamage: 15
+  bowAttackRate: 2
   groundCheck1: {fileID: 4955453499341331972}
   groundCheck2: {fileID: 4955453499037885327}
   groundLayer:
@@ -73575,6 +73554,7 @@ MonoBehaviour:
   disarmTime: 0.5
   knockbackVelocity: {x: 5, y: 10}
   knockbackBlockVelocity: {x: 3, y: 2}
+  cooldownRate: 4
   checkPoint: {fileID: 1678059061}
   clipSword: {fileID: 8300000, guid: 61dec0e0940c5144ebf5dd7ccdb3a2ca, type: 3}
   clipArrow: {fileID: 8300000, guid: cf9a8096e01b634458f1417a6aaf9504, type: 3}
@@ -73800,7 +73780,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0

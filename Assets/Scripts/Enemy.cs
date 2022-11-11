@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("RangedAttack"))
         {
-            TakeDamage(playerController.attackDamage);
+            TakeDamage(playerController.bowDamage);
             
         }
     }
