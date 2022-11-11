@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Player_Attack_Bow
+  m_Name: Player_Bowing_Idle
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -21,24 +21,12 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 2090713816, guid: 1ece5a729ca435342b8614f270820899, type: 3}
-    - time: 0.05
-      value: {fileID: 732701499, guid: 1ece5a729ca435342b8614f270820899, type: 3}
-    - time: 0.1
-      value: {fileID: -1414447852, guid: 1ece5a729ca435342b8614f270820899, type: 3}
-    - time: 0.15
-      value: {fileID: 1713013148, guid: 1ece5a729ca435342b8614f270820899, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
   - curve:
     - time: 0
-      value: {fileID: -2102751266, guid: 2f59cd70686749b409b839e98ec4f878, type: 3}
-    - time: 0.05
-      value: {fileID: -2042574101, guid: 2f59cd70686749b409b839e98ec4f878, type: 3}
-    - time: 0.1
-      value: {fileID: -368456767, guid: 2f59cd70686749b409b839e98ec4f878, type: 3}
-    - time: 0.15
       value: {fileID: -213417980, guid: 2f59cd70686749b409b839e98ec4f878, type: 3}
     attribute: m_Sprite
     path: Bow
@@ -47,12 +35,6 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: -1241163889, guid: 2d2b9754f1b054d46b17c0436158c009, type: 3}
-    - time: 0.05
-      value: {fileID: 482683895, guid: 2d2b9754f1b054d46b17c0436158c009, type: 3}
-    - time: 0.1
-      value: {fileID: -187692502, guid: 2d2b9754f1b054d46b17c0436158c009, type: 3}
-    - time: 0.15
-      value: {fileID: 537971778, guid: 2d2b9754f1b054d46b17c0436158c009, type: 3}
     attribute: m_Sprite
     path: Sword
     classID: 212
@@ -60,17 +42,11 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 1602762957, guid: 1aec4df641a016543a3de7c168ef2e59, type: 3}
-    - time: 0.05
-      value: {fileID: -554902872, guid: 1aec4df641a016543a3de7c168ef2e59, type: 3}
-    - time: 0.1
-      value: {fileID: -1873917031, guid: 1aec4df641a016543a3de7c168ef2e59, type: 3}
-    - time: 0.15
-      value: {fileID: 152938438, guid: 1aec4df641a016543a3de7c168ef2e59, type: 3}
     attribute: m_Sprite
     path: Shield
     classID: 212
     script: {fileID: 0}
-  m_SampleRate: 20
+  m_SampleRate: 2
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -107,27 +83,15 @@ AnimationClip:
       isPPtrCurve: 1
     pptrCurveMapping:
     - {fileID: 2090713816, guid: 1ece5a729ca435342b8614f270820899, type: 3}
-    - {fileID: 732701499, guid: 1ece5a729ca435342b8614f270820899, type: 3}
-    - {fileID: -1414447852, guid: 1ece5a729ca435342b8614f270820899, type: 3}
-    - {fileID: 1713013148, guid: 1ece5a729ca435342b8614f270820899, type: 3}
-    - {fileID: -2102751266, guid: 2f59cd70686749b409b839e98ec4f878, type: 3}
-    - {fileID: -2042574101, guid: 2f59cd70686749b409b839e98ec4f878, type: 3}
-    - {fileID: -368456767, guid: 2f59cd70686749b409b839e98ec4f878, type: 3}
     - {fileID: -213417980, guid: 2f59cd70686749b409b839e98ec4f878, type: 3}
     - {fileID: -1241163889, guid: 2d2b9754f1b054d46b17c0436158c009, type: 3}
-    - {fileID: 482683895, guid: 2d2b9754f1b054d46b17c0436158c009, type: 3}
-    - {fileID: -187692502, guid: 2d2b9754f1b054d46b17c0436158c009, type: 3}
-    - {fileID: 537971778, guid: 2d2b9754f1b054d46b17c0436158c009, type: 3}
     - {fileID: 1602762957, guid: 1aec4df641a016543a3de7c168ef2e59, type: 3}
-    - {fileID: -554902872, guid: 1aec4df641a016543a3de7c168ef2e59, type: 3}
-    - {fileID: -1873917031, guid: 1aec4df641a016543a3de7c168ef2e59, type: 3}
-    - {fileID: 152938438, guid: 1aec4df641a016543a3de7c168ef2e59, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.2
+    m_StopTime: 0.5
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

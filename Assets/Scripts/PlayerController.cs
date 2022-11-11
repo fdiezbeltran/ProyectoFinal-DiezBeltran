@@ -24,11 +24,15 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         HandleFlip();
+        HandleAttack();
+        HandleBow();
+        HandleShield();
     }
 
     //Manejar metodos con fisicas
     void FixedUpdate() 
     {
+        HandleMovement();
         SetJumpAnimator();
         GroundCheck();
         HitByEnemy();
@@ -86,21 +90,24 @@ public class PlayerController : MonoBehaviour
             if (context.performed)
             {
                 moveDirection = context.ReadValue<Vector2>().x;
-                Debug.Log(context.ReadValue<Vector2>());
                 animator.SetFloat("horizontalAnim", moveDirection);
-                rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
             }
             else if (context.canceled)
             {
-                moveDirection = context.ReadValue<Vector2>().x;
+                //moveDirection = context.ReadValue<Vector2>().x;
+                moveDirection = 0;
                 animator.SetFloat("horizontalAnim", moveDirection);
-                rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
             } 
        }else
         {
             var lerpedVelocity = Mathf.Lerp(rb.velocity.x, 0f, Time.deltaTime * 5);
             rb.velocity = new Vector2(lerpedVelocity, rb.velocity.y);
         }
+    }
+
+    void HandleMovement()
+    {
+        rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
     }
     void HandleFlip()
     {
@@ -189,10 +196,25 @@ public class PlayerController : MonoBehaviour
     private bool canMove = true;
     private bool attackBlocked;
 
+    private bool attackPressed;
+    private bool secondaryPressed;
+    private bool bowPressed;
+
     //Espada
     public void Attack(InputAction.CallbackContext context)
     {
         if (context.performed && !isBlocking)
+        {
+            attackPressed = true;
+        }
+        if (context.canceled)
+        {
+            attackPressed = false;
+        }
+    }
+    void HandleAttack()
+    {
+        if(attackPressed)
         {
             if (Time.time >= nextAttackTime && Time.time >= attackGlobalCooldown)
             {
@@ -213,13 +235,24 @@ public class PlayerController : MonoBehaviour
     //Escudo
     public void Secondary(InputAction.CallbackContext context)
     {
-        if (context.performed && isGrounded)
+        if (context.performed && !isBlocking)
+        {
+            secondaryPressed = true;
+        }
+        if (context.canceled)
+        {
+            secondaryPressed = false;
+        }
+    }
+    void HandleShield()
+    {
+        if (secondaryPressed && isGrounded)
         {
             speed = blockingSpeed;
             isBlocking = true;
             animator.SetBool("IsBlocking", isBlocking);
         }
-        if (context.canceled && isBlocking)
+        if (!secondaryPressed && isBlocking)
         {
             speed = movementSpeed;
             isBlocking = false;
@@ -229,38 +262,61 @@ public class PlayerController : MonoBehaviour
     //Arco
     public void Bow(InputAction.CallbackContext context)
     {
-        if (context.performed)
-        {            
+        if (context.performed && !isBlocking)
+        {
+            bowPressed = true;
+        }
+        if (context.canceled)
+        {
+            bowPressed = false;
+        }
+    }
+    void HandleBow()
+    {
+        if (bowPressed)
+        {         
+            speed = bowingSpeed;   
+            animator.SetBool("AttackBow", true);
             if (Time.time >= nextBowTime && Time.time >= attackGlobalCooldown)
             {   
                 if(isFacingRight)
                 {
-                    animator.SetTrigger("AttackBow");
                     PlaySound(clipArrow);
-                    GameObject arrow = Instantiate(arrowPrefab, center.position, Quaternion.identity);
-                    arrow.GetComponent<Rigidbody2D>().velocity = new Vector2(arrowVelocity, 0.0f);
-                    Destroy(arrow, 2f);
+                    animator.SetTrigger("AttackBowT");
+                    Invoke("ShotArrow", 0.2f);
                     nextBowTime = Time.time + 1f / bowAttackRate;
                     attackGlobalCooldown = Time.time + 1f / cooldownRate;
-                    speed = bowingSpeed;
                 }else
                 {
-                    animator.SetTrigger("AttackBow");
+                    //animator.SetBool("AttackBow", true);
                     PlaySound(clipArrow);
-                    GameObject arrow = Instantiate(arrowPrefab, center.position, Quaternion.identity);
-                    arrow.GetComponent<Rigidbody2D>().velocity = new Vector2(-arrowVelocity, 0.0f);
-                    arrow.transform.Rotate(0f, 0f, 180f);
-                    Destroy(arrow, 2f);
+                    animator.SetTrigger("AttackBowT");
+                    Invoke("ShotArrowBack", 0.2f);
                     nextBowTime = Time.time + 1f / bowAttackRate;
                     attackGlobalCooldown = Time.time + 1f / cooldownRate;
-                    speed = bowingSpeed;
                 }
             }
         }else
         {
             speed = movementSpeed;
+            animator.SetBool("AttackBow", false);
         }
     }
+
+    void ShotArrow()
+    {
+        GameObject arrow = Instantiate(arrowPrefab, center.position, Quaternion.identity);
+        arrow.GetComponent<Rigidbody2D>().velocity = new Vector2(arrowVelocity, 0.0f);
+        Destroy(arrow, 2f);
+    }
+    void ShotArrowBack()
+    {
+        GameObject arrow = Instantiate(arrowPrefab, center.position, Quaternion.identity);
+        arrow.GetComponent<Rigidbody2D>().velocity = new Vector2(-arrowVelocity, 0.0f);
+        arrow.transform.Rotate(0f, 0f, 180f);
+        Destroy(arrow, 2f);
+    }
+
 #endregion
 
 #region PlayerInteract
@@ -345,10 +401,10 @@ public class PlayerController : MonoBehaviour
     public void Die()
     {   
         canMove = false;
+        moveDirection = 0;
         animator.SetFloat("horizontalAnim", 0f);
         animator.SetBool("IsDead", true);
         PlaySound(clipDie);
-        //this.enabled = false;
         rb.velocity = Vector3.zero;
         Invoke("Respawn", 1.5f);
     }
