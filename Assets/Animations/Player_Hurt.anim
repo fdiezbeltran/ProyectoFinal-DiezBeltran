@@ -21,9 +21,9 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 1946672005, guid: 1ece5a729ca435342b8614f270820899, type: 3}
-    - time: 0.5
+    - time: 0.1
       value: {fileID: -1255637328, guid: 1ece5a729ca435342b8614f270820899, type: 3}
-    - time: 1
+    - time: 0.2
       value: {fileID: 846641064, guid: 1ece5a729ca435342b8614f270820899, type: 3}
     attribute: m_Sprite
     path: 
@@ -32,9 +32,9 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 870693401, guid: 2d2b9754f1b054d46b17c0436158c009, type: 3}
-    - time: 0.5
+    - time: 0.1
       value: {fileID: 1966823685, guid: 2d2b9754f1b054d46b17c0436158c009, type: 3}
-    - time: 1
+    - time: 0.2
       value: {fileID: -658732698, guid: 2d2b9754f1b054d46b17c0436158c009, type: 3}
     attribute: m_Sprite
     path: Sword
@@ -43,9 +43,9 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 346792897, guid: 1aec4df641a016543a3de7c168ef2e59, type: 3}
-    - time: 0.5
+    - time: 0.1
       value: {fileID: -2100243315, guid: 1aec4df641a016543a3de7c168ef2e59, type: 3}
-    - time: 1
+    - time: 0.2
       value: {fileID: -629593718, guid: 1aec4df641a016543a3de7c168ef2e59, type: 3}
     attribute: m_Sprite
     path: Shield
@@ -54,15 +54,15 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 447928834, guid: 2f59cd70686749b409b839e98ec4f878, type: 3}
-    - time: 0.5
+    - time: 0.1
       value: {fileID: -1326488151, guid: 2f59cd70686749b409b839e98ec4f878, type: 3}
-    - time: 1
+    - time: 0.2
       value: {fileID: 341604793, guid: 2f59cd70686749b409b839e98ec4f878, type: 3}
     attribute: m_Sprite
     path: Bow
     classID: 212
     script: {fileID: 0}
-  m_SampleRate: 2
+  m_SampleRate: 10
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -115,7 +115,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.5
+    m_StopTime: 0.3
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

@@ -111,11 +111,11 @@ public class PlayerController : MonoBehaviour
     }
     void HandleFlip()
     {
-            if (!isFacingRight && moveDirection > 0f && !isBlocking)
+            if (!isFacingRight && moveDirection > 0f && !isBlocking && !isBowing)
             {
                 Flip();
             }
-            else if (isFacingRight && moveDirection < 0f && !isBlocking)
+            else if (isFacingRight && moveDirection < 0f && !isBlocking && !isBowing)
             {
                 Flip();
             }
@@ -193,6 +193,7 @@ public class PlayerController : MonoBehaviour
     float nextBowTime = 0f;
     float attackGlobalCooldown = 0f;
     private bool isBlocking = false;
+    private bool isBowing = false;
     private bool canMove = true;
     private bool attackBlocked;
 
@@ -275,31 +276,32 @@ public class PlayerController : MonoBehaviour
     {
         if (bowPressed)
         {         
-            speed = bowingSpeed;   
             animator.SetBool("AttackBow", true);
+            isBowing = true;
+            speed = bowingSpeed;
             if (Time.time >= nextBowTime && Time.time >= attackGlobalCooldown)
             {   
                 if(isFacingRight)
                 {
                     PlaySound(clipArrow);
-                    animator.SetTrigger("AttackBowT");
                     Invoke("ShotArrow", 0.2f);
+                    animator.SetTrigger("AttackBowT");
                     nextBowTime = Time.time + 1f / bowAttackRate;
                     attackGlobalCooldown = Time.time + 1f / cooldownRate;
                 }else
                 {
-                    //animator.SetBool("AttackBow", true);
                     PlaySound(clipArrow);
-                    animator.SetTrigger("AttackBowT");
                     Invoke("ShotArrowBack", 0.2f);
+                    animator.SetTrigger("AttackBowT");
                     nextBowTime = Time.time + 1f / bowAttackRate;
                     attackGlobalCooldown = Time.time + 1f / cooldownRate;
                 }
             }
         }else
         {
-            speed = movementSpeed;
             animator.SetBool("AttackBow", false);
+            isBowing = false;
+            speed = movementSpeed;
         }
     }
 

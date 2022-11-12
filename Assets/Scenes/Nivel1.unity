@@ -466,7 +466,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 48.58554, y: 11.704547, z: -9.934517}
+  m_LocalPosition: {x: -9.414459, y: 2.7045467, z: -9.934517}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -67315,7 +67315,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1920963278}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 48.58554, y: 11.704547, z: -9.934517}
+  m_LocalPosition: {x: -9.414459, y: 2.7045467, z: -9.934517}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -73292,7 +73292,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4955453499013850962}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 58, y: 9, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -73529,7 +73529,7 @@ MonoBehaviour:
   currentHealth: 0
   movementSpeed: 8
   blockingSpeed: 4
-  bowingSpeed: 4
+  bowingSpeed: 0
   attackDamage: 25
   attackRate: 1.5
   bowDamage: 15
