@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D rb;
     public Animator animator;
     public SpriteRenderer sp;
-    public Collider2D jumpCollider;
+    public Collider2D col;
     public AudioSource audioSource;
     
     //Inicializar valores
@@ -27,6 +27,12 @@ public class PlayerController : MonoBehaviour
         HandleAttack();
         HandleBow();
         HandleShield();
+        InmunityColorChange();
+
+        if(Input.GetKeyDown("p"))
+        {
+            DamagePushback();
+        }
     }
 
     //Manejar metodos con fisicas
@@ -226,6 +232,14 @@ public class PlayerController : MonoBehaviour
                 foreach (Collider2D enemy in hitEnemies)
                 {
                     enemy.GetComponent<Enemy>().TakeDamage(attackDamage);
+                    if(isFacingRight)
+                    {
+                        rb.MovePosition(new Vector2(rb.position.x - 0.75f, rb.position.y));
+                    }
+                    if(!isFacingRight)
+                    {
+                        rb.MovePosition(new Vector2(rb.position.x + 0.75f, rb.position.y));
+                    }
                 }
                 
                 nextAttackTime = Time.time + 1f / attackRate;
@@ -324,15 +338,17 @@ public class PlayerController : MonoBehaviour
 #region PlayerInteract
     [Space]
     [Header("Player Interact")]
-
     public Transform checkPoint;
-    Color newColor = new Color(1f, 0.5f, 0.5f, 1f);
+
+    public bool damageInmune = false;
+    public float inmunityTime = 3;
+    Color halfAlpha = new Color(1f, 0.8f, 0.8f, 0.5f);
     private Vector3 enemyPosition;
 
     //Golpeado por enemigo
     public void HitByEnemy()
     {
-        if (canMove && !attackBlocked)
+        if (!damageInmune && !attackBlocked)
         {
             Collider2D[] getHit = Physics2D.OverlapBoxAll(defensePoint.position, defenseRange, 0f, enemyLayer);
 
@@ -351,18 +367,18 @@ public class PlayerController : MonoBehaviour
         if (currentHealth > 0)
         {
         animator.SetTrigger("Hurt");
-        StartCoroutine(HurtKnockback());
+        StartCoroutine(DamagePushback());
         }else if (currentHealth <= 0)
         {
             Die();
         }
     }
     //Limitar el movimiento y empujar para atras al player
-    public IEnumerator HurtKnockback()
+    /*public IEnumerator HurtKnockback()
     {    
         isBlocking = false;
         canMove = false;
-        sp.color = newColor;
+        //sp.color = newColor;
         var dir = center.position - enemyPosition;
         rb.velocity = dir.normalized * knockbackVelocity;
         moveDirection = 0;
@@ -371,6 +387,35 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("horizontalAnim", 0f);
         sp.color = Color.white;
         canMove = true;
+    }*/
+
+    //NUEVO PUSHBACK
+    //titilar transparente !
+    //desactivar collider !
+    //reproducir animacion
+    //tiempo unhitable !
+
+    public IEnumerator DamagePushback()
+    {
+        //alphaChange = Color.Lerp(reduceAlpha, Color.white, Mathf.PingPong(Time.time, 1));
+        
+        Physics2D.IgnoreLayerCollision(8, 7, true);
+        damageInmune = true;
+        PlaySound(clipHurt);
+        var dir = center.position - enemyPosition;
+        rb.velocity = dir.normalized * knockbackVelocity;
+        yield return new WaitForSeconds(inmunityTime);
+        sp.color = Color.white;
+        Physics2D.IgnoreLayerCollision(8, 7, false);
+        damageInmune = false;
+    }
+
+    void InmunityColorChange()
+    {   
+        if(damageInmune)
+        {
+            sp.color = Color.Lerp(halfAlpha, Color.white, Mathf.PingPong(Time.time * 2, 0.5f));
+        }
     }
     //Bloquear con el escudo
     public void BlockAttack()
@@ -427,6 +472,7 @@ public class PlayerController : MonoBehaviour
     public AudioClip clipSword;
     public AudioClip clipArrow;
     public AudioClip clipDie;
+    public AudioClip clipHurt;
 
     public void PlaySound(AudioClip clip)
     {

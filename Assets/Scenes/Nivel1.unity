@@ -73048,6 +73048,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slime_1
       objectReference: {fileID: 0}
+    - target: {fileID: 2453200760233820766, guid: 94724105308d2444889454f1e164ae70, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94724105308d2444889454f1e164ae70, type: 3}
 --- !u!4 &4955453497923403905
@@ -73074,7 +73078,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4955453497923403905}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BlockPoint
   m_TagString: Block
   m_Icon: {fileID: 0}
@@ -73091,7 +73095,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4955453498044677367}
   - component: {fileID: 4955453498044677366}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73189,7 +73193,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4955453498168445870}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DefensePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73205,7 +73209,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4955453498201830851}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SwordPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73236,7 +73240,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4955453498539814353}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Center
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73258,32 +73262,6 @@ Transform:
   m_Father: {fileID: 4955453498652161335}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &4955453498652161313
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4955453499013850962}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 6200000, guid: 90cb54a4558db01468901637ac2e7f36, type: 2}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.008429438, y: 0.48326683}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.56226903, y: 0.9713383}
-  m_EdgeRadius: 0
 --- !u!4 &4955453498652161335
 Transform:
   m_ObjectHideFlags: 0
@@ -73426,7 +73404,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4955453498947084460}
   - component: {fileID: 4955453498947084463}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73498,10 +73476,9 @@ GameObject:
   - component: {fileID: 4955453498652161342}
   - component: {fileID: 4955453498652161343}
   - component: {fileID: 4955453499013850965}
-  - component: {fileID: 4955453498652161313}
   - component: {fileID: 4955453499013850964}
   - component: {fileID: 4955453499013850963}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
@@ -73523,7 +73500,7 @@ MonoBehaviour:
   rb: {fileID: 4955453498652161342}
   animator: {fileID: 4955453498652161343}
   sp: {fileID: 4955453498652161340}
-  jumpCollider: {fileID: 0}
+  col: {fileID: 4955453499013850965}
   audioSource: {fileID: 4955453499013850964}
   playerMaxHealth: 100
   currentHealth: 0
@@ -73557,9 +73534,12 @@ MonoBehaviour:
   knockbackBlockVelocity: {x: 3, y: 2}
   cooldownRate: 4
   checkPoint: {fileID: 1678059061}
+  damageInmune: 0
+  inmunityTime: 3
   clipSword: {fileID: 8300000, guid: 61dec0e0940c5144ebf5dd7ccdb3a2ca, type: 3}
   clipArrow: {fileID: 8300000, guid: cf9a8096e01b634458f1417a6aaf9504, type: 3}
   clipDie: {fileID: 8300000, guid: a402e9fe2aa47e2418066b8cdc2c8bef, type: 3}
+  clipHurt: {fileID: 8300000, guid: 7115e527833068f48af66ab6a1114f84, type: 3}
 --- !u!82 &4955453499013850964
 AudioSource:
   m_ObjectHideFlags: 0
@@ -73696,7 +73676,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4955453499037885327}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GroundCheck2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73742,7 +73722,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4955453499341331972}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GroundCheck1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73759,7 +73739,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4955453499432830291}
   - component: {fileID: 4955453499432830290}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
