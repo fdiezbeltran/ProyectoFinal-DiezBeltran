@@ -28,6 +28,9 @@ public class PlayerController : MonoBehaviour
         HandleBow();
         HandleShield();
         InmunityColorChange();
+
+        //Prueba para cerrar el juego
+        CerrarJuego();
     }
 
     //Manejar metodos con fisicas
@@ -479,4 +482,12 @@ public class PlayerController : MonoBehaviour
         //Gizmos.DrawWireSphere(swordPoint.position, swordRange);
         //Gizmos.DrawWireSphere(center.position, 0.5f);
     }
+
+void CerrarJuego()
+{
+    if(Input.GetKeyDown("escape"))
+    {
+        Application.Quit();
+    }
+}
 }
