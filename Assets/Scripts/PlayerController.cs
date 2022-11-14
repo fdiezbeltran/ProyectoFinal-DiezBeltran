@@ -28,11 +28,6 @@ public class PlayerController : MonoBehaviour
         HandleBow();
         HandleShield();
         InmunityColorChange();
-
-        if(Input.GetKeyDown("p"))
-        {
-            DamagePushback();
-        }
     }
 
     //Manejar metodos con fisicas
@@ -56,7 +51,7 @@ public class PlayerController : MonoBehaviour
     public int currentHealth; // Vida actual del jugador
     public float movementSpeed = 8; //Velocidad a la que corre
     public float blockingSpeed = 4; //Define la velocidad de movimiento mientras bloquea
-    public float bowingSpeed = 4; //Define la velocidad mientras se dispara el arco
+    private float bowingSpeed = 0; //Define la velocidad mientras se dispara el arco
     public int attackDamage = 25; //Define el danio que hace con la espada
     public float attackRate = 1.5f; //Define el tiempo para atacar de nuevo con la espada
     public int bowDamage = 15; //Define el danio que hace con el arco
@@ -87,11 +82,11 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     private float airTime;
     private bool isJumping;
-    private float jumpingPower = 16; //Fuerza del salto
+    private float jumpingPower = 16;
     
     public void Move(InputAction.CallbackContext context)
     {
-       if(canMove) //Esto es para evitar que se mueva cuando recibe danio
+       if(canMove)
        {
             if (context.performed)
             {
@@ -100,7 +95,6 @@ public class PlayerController : MonoBehaviour
             }
             else if (context.canceled)
             {
-                //moveDirection = context.ReadValue<Vector2>().x;
                 moveDirection = 0;
                 animator.SetFloat("horizontalAnim", moveDirection);
             } 
@@ -181,19 +175,12 @@ public class PlayerController : MonoBehaviour
 
     public GameObject arrowPrefab;
     public Transform swordPoint;
-    public Transform defensePoint;
-    public Transform blockPoint;
     public Transform center;
     public LayerMask enemyLayer;
     
     public float arrowVelocity = 15; //Define la velocidad a la que viaja la flecha
     public float swordRange = 0.6f; //Define la distancia de ataque de la espada
-    public Vector2 blockRange = new Vector2(0.46f, 0.91f); //Define el rango de bloqueo con el escudo
-    public Vector2 defenseRange = new Vector2(0.66f, 0.97f); //Define el rango en que puede ser atacado
-    public float disarmTime = 0.5f; //Define el tiempo por el que no se puede mover despues de ser golpeado
-    public Vector2 knockbackVelocity = new Vector2(5, 10); //Define la fuerza del rechazo al ser daniado
-    public Vector2 knockbackBlockVelocity = new Vector2(3, 2); //Define la fuerza del rechazo al bloquear
-    public float cooldownRate = 0.5f; //Define un minimo de tiempo entre ataques
+    public float cooldownRate = 4f; //Define un minimo de tiempo entre ataques
 
     float nextAttackTime = 0f;
     float nextBowTime = 0f;
@@ -201,7 +188,6 @@ public class PlayerController : MonoBehaviour
     private bool isBlocking = false;
     private bool isBowing = false;
     private bool canMove = true;
-    private bool attackBlocked;
 
     private bool attackPressed;
     private bool secondaryPressed;
@@ -235,8 +221,7 @@ public class PlayerController : MonoBehaviour
                     if(isFacingRight)
                     {
                         rb.MovePosition(new Vector2(rb.position.x - 0.75f, rb.position.y));
-                    }
-                    if(!isFacingRight)
+                    }else                    
                     {
                         rb.MovePosition(new Vector2(rb.position.x + 0.75f, rb.position.y));
                     }
@@ -335,12 +320,19 @@ public class PlayerController : MonoBehaviour
 
 #endregion
 
-#region PlayerInteract
+#region PlayerDamageAndBlock
     [Space]
-    [Header("Player Interact")]
-    public Transform checkPoint;
+    [Header("Player Damage and Block")]
+    public Transform damagePoint;
+    public Transform blockPoint;
+    public Transform blockBackPoint;
 
-    public bool damageInmune = false;
+    public Vector2 damageRange = new Vector2(0.57f, 0.97f); //Define el rango en que puede ser atacado
+    public Vector2 blockRange = new Vector2(0.31f, 0.94f); //Define el rango de bloqueo con el escudo
+    public Vector2 blockBackRange = new Vector2(0.31f, 0.94f); //Define el rango de bloqueo con el escudo
+    public Vector2 pushbackVelocity = new Vector2(5, 10); //Define la fuerza del rechazo al ser daniado
+    public float blockingTime = 0.3f; //Define el tiempo por el que no se puede mover despues de ser golpeado
+    private bool damageInmune = false;
     public float inmunityTime = 3;
     Color halfAlpha = new Color(1f, 0.8f, 0.8f, 0.5f);
     private Vector3 enemyPosition;
@@ -348,16 +340,15 @@ public class PlayerController : MonoBehaviour
     //Golpeado por enemigo
     public void HitByEnemy()
     {
-        if (!damageInmune && !attackBlocked)
+        if (!damageInmune && !isBlocking)
         {
-            Collider2D[] getHit = Physics2D.OverlapBoxAll(defensePoint.position, defenseRange, 0f, enemyLayer);
+            Collider2D[] getHit = Physics2D.OverlapBoxAll(damagePoint.position, damageRange, 0f, enemyLayer);
 
             foreach (Collider2D enemy in getHit)
             {
                 TakeDamage(enemy.GetComponent<Enemy>().attackDamage);
                 enemyPosition = enemy.GetComponent<Enemy>().transform.position;
             }
-
         }
     }
     //Descontar danio
@@ -373,43 +364,19 @@ public class PlayerController : MonoBehaviour
             Die();
         }
     }
-    //Limitar el movimiento y empujar para atras al player
-    /*public IEnumerator HurtKnockback()
-    {    
-        isBlocking = false;
-        canMove = false;
-        //sp.color = newColor;
-        var dir = center.position - enemyPosition;
-        rb.velocity = dir.normalized * knockbackVelocity;
-        moveDirection = 0;
-        yield return new WaitForSeconds(disarmTime);
-        rb.velocity = Vector3.zero;
-        animator.SetFloat("horizontalAnim", 0f);
-        sp.color = Color.white;
-        canMove = true;
-    }*/
-
-    //NUEVO PUSHBACK
-    //titilar transparente !
-    //desactivar collider !
-    //reproducir animacion
-    //tiempo unhitable !
-
+    //Inmunidad temporal
     public IEnumerator DamagePushback()
-    {
-        //alphaChange = Color.Lerp(reduceAlpha, Color.white, Mathf.PingPong(Time.time, 1));
-        
+    {        
         Physics2D.IgnoreLayerCollision(8, 7, true);
         damageInmune = true;
         PlaySound(clipHurt);
         var dir = center.position - enemyPosition;
-        rb.velocity = dir.normalized * knockbackVelocity;
+        rb.velocity = dir.normalized * pushbackVelocity;
         yield return new WaitForSeconds(inmunityTime);
         sp.color = Color.white;
         Physics2D.IgnoreLayerCollision(8, 7, false);
         damageInmune = false;
-    }
-
+    } 
     void InmunityColorChange()
     {   
         if(damageInmune)
@@ -426,8 +393,16 @@ public class PlayerController : MonoBehaviour
 
             foreach (Collider2D enemy in getBlock)
             {
-                enemyPosition = enemy.GetComponent<Enemy>().transform.position;
                 StartCoroutine(BlockKnockback());
+            }
+        
+            Collider2D[] getHitBack = Physics2D.OverlapBoxAll(blockBackPoint.position, blockBackRange, 0f, enemyLayer);
+
+            foreach (Collider2D enemy in getHitBack)
+            {
+                enemyPosition = enemy.GetComponent<Enemy>().transform.position;
+                TakeDamage(enemy.GetComponent<Enemy>().attackDamage);
+                secondaryPressed = false;
             }
         }
     }
@@ -435,16 +410,28 @@ public class PlayerController : MonoBehaviour
     public IEnumerator BlockKnockback()
     {
         canMove = false;
-        attackBlocked = true;
-        var dir = center.position - enemyPosition;
-        rb.velocity = dir.normalized * knockbackBlockVelocity;
+        if(isFacingRight)
+        {
+            moveDirection = -1;
+            animator.SetFloat("horizontalAnim", -1f);
+        }else                    
+        {
+            moveDirection = 1;
+            animator.SetFloat("horizontalAnim", 1f);
+        }
+        yield return new WaitForSeconds(blockingTime);
         moveDirection = 0;
-        yield return new WaitForSeconds(disarmTime);
-        rb.velocity = Vector3.zero;
         animator.SetFloat("horizontalAnim", 0f);
-        canMove = true;
-        attackBlocked = false;   
+        canMove = true; 
     }
+#endregion
+
+#region PlayerRespawn
+    [Space]
+    [Header("Player Respawn")]
+
+    public Transform checkPoint;
+
     public void Die()
     {   
         canMove = false;
@@ -463,6 +450,7 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("IsDead", false);
         currentHealth = playerMaxHealth;
     }
+
 #endregion
 
 #region PlayerAudio
@@ -486,8 +474,9 @@ public class PlayerController : MonoBehaviour
 //Esto es para ver radios
     void OnDrawGizmosSelected() {
         Gizmos.DrawWireCube(blockPoint.position, blockRange);
-        Gizmos.DrawWireCube(defensePoint.position, defenseRange);
-        Gizmos.DrawWireSphere(swordPoint.position, swordRange);
-        Gizmos.DrawWireSphere(center.position, 0.5f);
+        Gizmos.DrawWireCube(blockBackPoint.position, blockBackRange);
+        Gizmos.DrawWireCube(damagePoint.position, damageRange);
+        //Gizmos.DrawWireSphere(swordPoint.position, swordRange);
+        //Gizmos.DrawWireSphere(center.position, 0.5f);
     }
 }

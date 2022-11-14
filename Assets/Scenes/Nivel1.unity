@@ -326,6 +326,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Asset: {fileID: -944628639613478452, guid: 53b6a29aed0f7ad4ea437a1926420d09, type: 3}
   m_ActionId: 5c8e3765-a576-4742-9fe7-3419d8ecb108
+--- !u!1 &408101293
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 408101294}
+  m_Layer: 8
+  m_Name: BlockBackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &408101294
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 408101293}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.183, y: 0.471, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4955453498652161335}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &472608949
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -375,6 +406,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2453200760233820755, guid: 94724105308d2444889454f1e164ae70, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2453200760233820756, guid: 94724105308d2444889454f1e164ae70, type: 3}
+      propertyPath: m_BodyType
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2453200760233820757, guid: 94724105308d2444889454f1e164ae70, type: 3}
@@ -73062,12 +73097,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4955453497923403934}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.149, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0.149, y: 0.471, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4955453498652161335}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4955453497923403934
 GameObject:
@@ -73167,7 +73202,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4955453498652161335}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4955453498168445870
 Transform:
@@ -73177,7 +73212,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4955453498168445871}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.481, z: 0}
+  m_LocalPosition: {x: -0.003, y: 0.481, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -73194,7 +73229,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4955453498168445870}
   m_Layer: 8
-  m_Name: DefensePoint
+  m_Name: DamagePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73260,7 +73295,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4955453498652161335}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4955453498652161335
 Transform:
@@ -73278,8 +73313,9 @@ Transform:
   - {fileID: 4955453499037885327}
   - {fileID: 4955453498201830851}
   - {fileID: 4955453498168445870}
-  - {fileID: 4955453498539814353}
   - {fileID: 4955453497923403905}
+  - {fileID: 408101294}
+  - {fileID: 4955453498539814353}
   - {fileID: 4955453498044677367}
   - {fileID: 4955453499432830291}
   - {fileID: 4955453498947084460}
@@ -73392,7 +73428,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4955453498652161335}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4955453498947084461
 GameObject:
@@ -73506,7 +73542,6 @@ MonoBehaviour:
   currentHealth: 0
   movementSpeed: 8
   blockingSpeed: 4
-  bowingSpeed: 0
   attackDamage: 25
   attackRate: 1.5
   bowDamage: 15
@@ -73519,23 +73554,23 @@ MonoBehaviour:
   speed: 0
   arrowPrefab: {fileID: 5558446859056942437, guid: e90b55af33e245d419dbccf212b10d61, type: 3}
   swordPoint: {fileID: 4955453498201830851}
-  defensePoint: {fileID: 4955453498168445870}
-  blockPoint: {fileID: 4955453497923403905}
   center: {fileID: 4955453498539814353}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 128
   arrowVelocity: 15
   swordRange: 0.6
-  blockRange: {x: 0.46, y: 0.91}
-  defenseRange: {x: 0.66, y: 0.97}
-  disarmTime: 0.5
-  knockbackVelocity: {x: 5, y: 10}
-  knockbackBlockVelocity: {x: 3, y: 2}
   cooldownRate: 4
-  checkPoint: {fileID: 1678059061}
-  damageInmune: 0
+  damagePoint: {fileID: 4955453498168445870}
+  blockPoint: {fileID: 4955453497923403905}
+  blockBackPoint: {fileID: 408101294}
+  damageRange: {x: 0.57, y: 0.97}
+  blockRange: {x: 0.31, y: 0.94}
+  blockBackRange: {x: 0.31, y: 0.94}
+  pushbackVelocity: {x: 5, y: 10}
+  blockingTime: 0.3
   inmunityTime: 3
+  checkPoint: {fileID: 1678059061}
   clipSword: {fileID: 8300000, guid: 61dec0e0940c5144ebf5dd7ccdb3a2ca, type: 3}
   clipArrow: {fileID: 8300000, guid: cf9a8096e01b634458f1417a6aaf9504, type: 3}
   clipDie: {fileID: 8300000, guid: a402e9fe2aa47e2418066b8cdc2c8bef, type: 3}
@@ -73811,5 +73846,5 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4955453498652161335}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
