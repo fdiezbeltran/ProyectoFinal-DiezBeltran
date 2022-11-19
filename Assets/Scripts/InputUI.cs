@@ -14,7 +14,7 @@ public class InputUI : MonoBehaviour
     {
         if (instance != null)
         {
-            Debug.LogError("Found more than one Input Manager in the scene.");
+            Debug.LogError("Hay mas de un InputUI en la escena");
         }
         
         instance = this;

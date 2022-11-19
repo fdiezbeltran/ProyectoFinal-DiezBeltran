@@ -4,10 +4,12 @@ using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {
+    
     void Update()
     {
         UpdateHUD();
         TogglePause();
+        DialogueHideHUD();
     }
 
     [Header("Barra de vida")]
@@ -42,14 +44,12 @@ public class UIController : MonoBehaviour
     public void PauseGame()
     {
         gamePaused = true;
-        hud.SetActive(false);
         pauseMenu.SetActive(true);
         Time.timeScale = 0;
     }
     public void ResumeGame()
     {
         gamePaused = false;
-        hud.SetActive(true);
         pauseMenu.SetActive(false);
         Time.timeScale = 1;
     }
@@ -57,4 +57,20 @@ public class UIController : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
+
+    [Space]
+    [Header("Dialogue Playing")]
+    public DialogueManager dialogueManager;
+
+    void DialogueHideHUD()
+    {
+        if(dialogueManager.dialogueIsPlaying)
+        {
+            hud.SetActive(false);
+        }else
+        {
+            hud.SetActive(true);
+        }
+    }
+
 }

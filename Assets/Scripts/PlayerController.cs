@@ -95,7 +95,7 @@ public class PlayerController : MonoBehaviour
     
     public void Move(InputAction.CallbackContext context)
     {
-       if(canMove)
+       if(canMove && !dialogueManager.dialogueIsPlaying)
        {
             if (context.performed)
             {
@@ -138,11 +138,11 @@ public class PlayerController : MonoBehaviour
     }    
     public void Jump(InputAction.CallbackContext context)
     {
-        if (context.performed && isGrounded && !isBlocking)
+        if (context.performed && isGrounded && !isBlocking  && !dialogueManager.dialogueIsPlaying)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
         }
-        if (context.performed && airTime < 0.075f && !isJumping && !isBlocking)
+        if (context.performed && airTime < 0.075f && !isJumping && !isBlocking  && !dialogueManager.dialogueIsPlaying)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
         }
@@ -216,7 +216,7 @@ public class PlayerController : MonoBehaviour
     }
     void HandleAttack()
     {
-        if(attackPressed)
+        if(attackPressed && !dialogueManager.dialogueIsPlaying)
         {
             if (Time.time >= nextAttackTime && Time.time >= attackGlobalCooldown)
             {
@@ -255,7 +255,7 @@ public class PlayerController : MonoBehaviour
     }
     void HandleShield()
     {
-        if (secondaryPressed && isGrounded)
+        if (secondaryPressed && isGrounded && !dialogueManager.dialogueIsPlaying)
         {
             speed = blockingSpeed;
             isBlocking = true;
@@ -282,7 +282,7 @@ public class PlayerController : MonoBehaviour
     }
     void HandleBow()
     {
-        if (bowPressed)
+        if (bowPressed && !dialogueManager.dialogueIsPlaying)
         {         
             animator.SetBool("AttackBow", true);
             isBowing = true;
@@ -483,18 +483,10 @@ public class PlayerController : MonoBehaviour
 #region PlayerDialogue
     [Space]
     [Header("Player Dialogue")]
-    //private static PlayerController instance;
     public DialogueManager dialogueManager;
 
     public bool dialogueRange;
     public bool interactPressed;
-    /*public bool submitPressed;
-
-
-    public static PlayerController GetInstance() 
-    {
-        return instance;
-    }*/
 
     public void Interact(InputAction.CallbackContext context)
     {
@@ -507,32 +499,6 @@ public class PlayerController : MonoBehaviour
             interactPressed = false;
         }
     }
-    /*
-    public void Submit(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            submitPressed = true;
-        }
-        else if (context.canceled)
-        {
-            submitPressed = false;
-        } 
-    }
-
-    public bool GetSubmitPressed() 
-    {
-        bool result = submitPressed;
-        submitPressed = false;
-        return result;
-    }
-
-    public void RegisterSubmitPressed() 
-    {
-        submitPressed = false;
-    }
-*/
-
 
 #endregion
 
