@@ -23,14 +23,13 @@ public class PlayerController : MonoBehaviour
     //Manejar metodos
     void Update()
     {
+        UpdateUIHealth();
+
         HandleFlip();
         HandleAttack();
         HandleBow();
         HandleShield();
         InmunityColorChange();
-
-        //Prueba para cerrar el juego
-        CerrarJuego();
     }
 
     //Manejar metodos con fisicas
@@ -50,7 +49,7 @@ public class PlayerController : MonoBehaviour
 
     //Valores del jugador que necesite ir cambiando
 
-    public int playerMaxHealth = 100; // Define la vida maxima del jugador
+    public static int playerMaxHealth = 100; // Define la vida maxima del jugador
     public int currentHealth; // Vida actual del jugador
     public float movementSpeed = 8; //Velocidad a la que corre
     public float blockingSpeed = 4; //Define la velocidad de movimiento mientras bloquea
@@ -60,6 +59,8 @@ public class PlayerController : MonoBehaviour
     public int bowDamage = 15; //Define el danio que hace con el arco
     public float bowAttackRate = 1.5f; //Define el tiempo para atacar de nuevo con el arco
 
+    public static int uiHealth;
+
     void InitializeHealth()
     {
         currentHealth = playerMaxHealth;
@@ -67,6 +68,11 @@ public class PlayerController : MonoBehaviour
     void InitializeSpeed()
     {
         speed = movementSpeed;
+    }
+
+    void UpdateUIHealth()
+    {
+        uiHealth = currentHealth;
     }
 
 #endregion
@@ -483,11 +489,5 @@ public class PlayerController : MonoBehaviour
         //Gizmos.DrawWireSphere(center.position, 0.5f);
     }
 
-void CerrarJuego()
-{
-    if(Input.GetKeyDown("escape"))
-    {
-        Application.Quit();
-    }
-}
+
 }
