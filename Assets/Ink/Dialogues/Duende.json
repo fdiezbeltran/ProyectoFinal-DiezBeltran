@@ -1,0 +1,1 @@
+﻿{"inkVersion":20,"root":[["^El texto se pasa con <b>E</b>. ",{"#":"name:Duende"},{"#":"portrait:duende_portrait"},"\n","^Para saltar apreta <b>I</b>.","\n","^Y con <b>J</b>, <b>K</b> y <b>L</b> usas la espada, escudo y arco.","\n","^No dejes que los monstruos te toquen.","\n","end",["done",{"#f":5,"#n":"g-0"}],null],"done",{"#f":1}],"listDefs":{}}

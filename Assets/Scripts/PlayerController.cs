@@ -24,12 +24,12 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         UpdateUIHealth();
-
         HandleFlip();
         HandleAttack();
         HandleBow();
         HandleShield();
         InmunityColorChange();
+        StopPlayerInDialogue();
     }
 
     //Manejar metodos con fisicas
@@ -497,6 +497,15 @@ public class PlayerController : MonoBehaviour
         if (context.canceled)
         {
             interactPressed = false;
+        }
+    }
+
+    void StopPlayerInDialogue()
+    {
+        if(dialogueManager.dialogueIsPlaying)
+        {
+            moveDirection = 0;
+            animator.SetFloat("horizontalAnim", 0);
         }
     }
 
