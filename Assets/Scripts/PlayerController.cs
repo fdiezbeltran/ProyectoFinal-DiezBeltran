@@ -480,6 +480,62 @@ public class PlayerController : MonoBehaviour
 
 #endregion
 
+#region PlayerDialogue
+    [Space]
+    [Header("Player Dialogue")]
+    //private static PlayerController instance;
+    public DialogueManager dialogueManager;
+
+    public bool dialogueRange;
+    public bool interactPressed;
+    /*public bool submitPressed;
+
+
+    public static PlayerController GetInstance() 
+    {
+        return instance;
+    }*/
+
+    public void Interact(InputAction.CallbackContext context)
+    {
+        if (context.performed && !dialogueManager.dialogueIsPlaying)
+        {
+            interactPressed = true;
+        }
+        if (context.canceled)
+        {
+            interactPressed = false;
+        }
+    }
+    /*
+    public void Submit(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            submitPressed = true;
+        }
+        else if (context.canceled)
+        {
+            submitPressed = false;
+        } 
+    }
+
+    public bool GetSubmitPressed() 
+    {
+        bool result = submitPressed;
+        submitPressed = false;
+        return result;
+    }
+
+    public void RegisterSubmitPressed() 
+    {
+        submitPressed = false;
+    }
+*/
+
+
+#endregion
+
 //Esto es para ver radios
     void OnDrawGizmosSelected() {
         Gizmos.DrawWireCube(blockPoint.position, blockRange);
