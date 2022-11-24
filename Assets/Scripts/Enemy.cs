@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     public Rigidbody2D rb;
     public SpriteRenderer sp;
     public PlayerController playerController;
+    public AudioSource audioSource;
     
 
     public int maxHealth = 100;
@@ -16,11 +17,11 @@ public class Enemy : MonoBehaviour
     public Vector2 knockbackVelocity;
     public float disarmTime;
     Color newColor = new Color(1f, 0.5f, 0.5f, 1f);
+    
 
     void Start()
     {
         currentHealth = maxHealth;
-        //rb.velocity = new Vector2(-1, 0);
     }
 
     void Update() 
@@ -41,21 +42,29 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-
+        PlaySound(clipEnemyHurt);
         animator.SetTrigger("GetHurt");
-        StartCoroutine(HurtKnockback());
+        StartCoroutine(EnemyHurt());
         if (currentHealth <=0)
         {
             Die();
         }
     }
-    public IEnumerator HurtKnockback()
+    public IEnumerator EnemyHurt()
     {    
         sp.color = newColor;
-        //var dir = playerController.swordPoint.position - transform.position;
-        //rb.velocity = dir.normalized * knockbackVelocity;
         yield return new WaitForSeconds(disarmTime);
         sp.color = Color.white;
+    }
+    public void EnemyHurtPush(bool directionRight)
+    {
+        if(directionRight == true)
+        {
+            rb.MovePosition(new Vector2(rb.position.x + 0.50f, rb.position.y));
+        }else
+        {
+            rb.MovePosition(new Vector2(rb.position.x - 0.50f, rb.position.y));
+        }
     }
     void Die()
     {
@@ -115,6 +124,21 @@ public class Enemy : MonoBehaviour
             break;
         }
     }
+
+#endregion
+
+#region EnemyAudio
+    [Space]
+    [Header("Enemy Audio")]
+
+    public AudioClip clipEnemyHurt;
+
+    public void PlaySound(AudioClip clip)
+    {
+        audioSource.clip = clip;
+        audioSource.Play();
+    }
+
 
 #endregion
 }

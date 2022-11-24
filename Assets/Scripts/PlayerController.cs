@@ -186,6 +186,7 @@ public class PlayerController : MonoBehaviour
     public Transform swordPoint;
     public Transform center;
     public LayerMask enemyLayer;
+    public ParticleSystem hit;
     
     public float arrowVelocity = 15; //Define la velocidad a la que viaja la flecha
     public float swordRange = 0.6f; //Define la distancia de ataque de la espada
@@ -227,12 +228,15 @@ public class PlayerController : MonoBehaviour
                 foreach (Collider2D enemy in hitEnemies)
                 {
                     enemy.GetComponent<Enemy>().TakeDamage(attackDamage);
+                    hit.Play();
                     if(isFacingRight)
                     {
-                        rb.MovePosition(new Vector2(rb.position.x - 0.75f, rb.position.y));
+                        rb.MovePosition(new Vector2(rb.position.x - 0.15f, rb.position.y));
+                        enemy.GetComponent<Enemy>().EnemyHurtPush(true);
                     }else                    
                     {
-                        rb.MovePosition(new Vector2(rb.position.x + 0.75f, rb.position.y));
+                        rb.MovePosition(new Vector2(rb.position.x + 0.15f, rb.position.y));
+                        enemy.GetComponent<Enemy>().EnemyHurtPush(false);
                     }
                 }
                 
@@ -470,6 +474,7 @@ public class PlayerController : MonoBehaviour
     public AudioClip clipArrow;
     public AudioClip clipDie;
     public AudioClip clipHurt;
+    
 
     public void PlaySound(AudioClip clip)
     {
@@ -516,7 +521,7 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawWireCube(blockPoint.position, blockRange);
         Gizmos.DrawWireCube(blockBackPoint.position, blockBackRange);
         Gizmos.DrawWireCube(damagePoint.position, damageRange);
-        //Gizmos.DrawWireSphere(swordPoint.position, swordRange);
+        Gizmos.DrawWireSphere(swordPoint.position, swordRange);
         //Gizmos.DrawWireSphere(center.position, 0.5f);
     }
 
