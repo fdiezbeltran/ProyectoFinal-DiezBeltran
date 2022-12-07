@@ -42,6 +42,11 @@ public class PlayerController : MonoBehaviour
         BlockAttack();
     }
 
+#region Singleton
+
+
+#endregion
+
 #region PlayerStats
     
     [Space]
@@ -515,6 +520,7 @@ public class PlayerController : MonoBehaviour
     }
 
 #endregion
+
 
 //Esto es para ver radios
     void OnDrawGizmosSelected() {
