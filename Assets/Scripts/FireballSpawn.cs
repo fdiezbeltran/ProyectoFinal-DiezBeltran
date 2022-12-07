@@ -8,17 +8,20 @@ public class FireballSpawn : MonoBehaviour
     public Transform center;
 
     public float fireballCooldown;
-    public float fireballRate = 2;
-    public float fireballVelocity = 15;
+    public float fireballRate = 1f;
+    public float fireballVelocity = 1f;
 
 
     void Update()
     {
-        fireballCooldown = Time.time + 1f / fireballRate;
-        if(Time.time >= fireballCooldown)
+        if(fireballCooldown > 3)
         {
             GameObject fireball = Instantiate(fireballPrefab, center.position, Quaternion.identity);
-            fireball.GetComponent<Rigidbody2D>().velocity = new Vector2(fireballVelocity, 0.0f);
+            fireball.GetComponent<Rigidbody2D>().velocity = new Vector2(-fireballVelocity, 0.0f);
+            
+            fireballCooldown = 0;
         }
+
+        fireballCooldown += Time.deltaTime;
     }
 }

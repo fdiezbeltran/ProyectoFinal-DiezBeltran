@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4059657920740454561}
   - component: {fileID: 5337988748402536608}
   - component: {fileID: 2165573109309685784}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FireBall
   m_TagString: Fireball
   m_Icon: {fileID: 0}
@@ -119,7 +119,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.5}
@@ -137,7 +137,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ad053a8bd32b6242b3c36d4673f425f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 2165573109309685784}
   animator: {fileID: 4059657920740454566}
+  fireballLight: {fileID: 4059657921870321048}
   attackDamage: 50
 --- !u!50 &2165573109309685784
 Rigidbody2D:
