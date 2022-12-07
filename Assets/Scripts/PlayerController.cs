@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     {
         InitializeHealth();
         InitializeSpeed();
+        StartCoroutine(LevelStartPosition());
     }
 
     //Manejar metodos
@@ -42,8 +43,18 @@ public class PlayerController : MonoBehaviour
         BlockAttack();
     }
 
-#region Singleton
+#region PlayerPositionStart
 
+    public IEnumerator LevelStartPosition()
+    {
+        canMove = false;
+        moveDirection = 1;
+        animator.SetFloat("horizontalAnim", 1f);
+        yield return new WaitForSeconds(0.5f);
+        moveDirection = 0;
+        animator.SetFloat("horizontalAnim", 0f);
+        canMove = true; 
+    }
 
 #endregion
 
@@ -364,7 +375,14 @@ public class PlayerController : MonoBehaviour
 
             foreach (Collider2D enemy in getHit)
             {
-                TakeDamage(enemy.GetComponent<Enemy>().attackDamage);
+                if(enemy.gameObject.CompareTag("Enemy"))
+                {
+                    TakeDamage(enemy.GetComponent<Enemy>().attackDamage);
+                }
+                if(enemy.gameObject.CompareTag("Fireball"))
+                {
+                    TakeDamage(enemy.GetComponent<Fireball>().attackDamage);
+                }
                 enemyPosition = enemy.GetComponent<Enemy>().transform.position;
             }
         }

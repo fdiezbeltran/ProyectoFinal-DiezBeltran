@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -14,7 +13,7 @@ public class Enemy : MonoBehaviour
     public int maxHealth = 100;
     int currentHealth;
     public int attackDamage = 20;
-    public Vector2 knockbackVelocity;
+    //public Vector2 knockbackVelocity;
     public float disarmTime;
     Color newColor = new Color(1f, 0.5f, 0.5f, 1f);
     

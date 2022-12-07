@@ -8,6 +8,7 @@ TagManager:
   - RangedAttack
   - Enemy
   - Level
+  - Fireball
   layers:
   - Default
   - TransparentFX

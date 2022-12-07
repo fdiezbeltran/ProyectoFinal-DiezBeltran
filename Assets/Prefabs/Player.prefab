@@ -5054,7 +5054,7 @@ GameObject:
   - component: {fileID: 6311051904804722393}
   m_Layer: 8
   m_Name: BlockPoint
-  m_TagString: Block
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5200,7 +5200,7 @@ GameObject:
   - component: {fileID: 6311051905175723510}
   m_Layer: 8
   m_Name: DamagePoint
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
