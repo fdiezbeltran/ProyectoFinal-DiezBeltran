@@ -8,7 +8,6 @@ using UnityEngine.InputSystem;
 
 public class DialogueTrigger : MonoBehaviour
 {      
-    //public Animator animator;
     public PlayerController playerController;
     public GameObject dialogueSign;
 

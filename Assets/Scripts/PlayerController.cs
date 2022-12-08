@@ -378,12 +378,12 @@ public class PlayerController : MonoBehaviour
                 if(enemy.gameObject.CompareTag("Enemy"))
                 {
                     TakeDamage(enemy.GetComponent<Enemy>().attackDamage);
+                    enemyPosition = enemy.GetComponent<Enemy>().transform.position;
                 }
                 if(enemy.gameObject.CompareTag("Fireball"))
                 {
                     TakeDamage(enemy.GetComponent<Fireball>().attackDamage);
                 }
-                enemyPosition = enemy.GetComponent<Enemy>().transform.position;
             }
         }
     }
@@ -436,9 +436,12 @@ public class PlayerController : MonoBehaviour
 
             foreach (Collider2D enemy in getHitBack)
             {
-                enemyPosition = enemy.GetComponent<Enemy>().transform.position;
-                TakeDamage(enemy.GetComponent<Enemy>().attackDamage);
-                secondaryPressed = false;
+                if(!damageInmune)
+                {
+                    enemyPosition = enemy.GetComponent<Enemy>().transform.position;
+                    TakeDamage(enemy.GetComponent<Enemy>().attackDamage);
+                    secondaryPressed = false;
+                }
             }
         }
     }
