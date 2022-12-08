@@ -4,45 +4,60 @@ using UnityEngine;
 
 public class LightAnimatorSwitcher : MonoBehaviour
 {
-    public Animator animator;    
+    public Animator animator;
+    public bool apagable; 
 
-    // Start is called before the first frame update
     void Start()
     {
         DefineLightType();
     }
 
-public enum LightType
+    void Update() 
     {
-        A,
-        B,
-        C
+        
     }
-    
-    [Space]
-    [Header("Light Type")]
-    
-    public LightType Type;
 
-    public void DefineLightType()
+    void OnTriggerEnter2D(Collider2D col) 
     {
-        switch (Type)
+        if(apagable)
         {
-            case LightType.A:
-                animator.SetBool("A", true);
-            break;
-
-            case LightType.B:
-                animator.SetBool("B", true);
-            break;
-
-            case LightType.C:
-               animator.SetBool("C", true);
-            break;
-
-            default:
-
-            break;
+            if(col.gameObject.CompareTag("Player"))
+            {
+                Destroy(gameObject);
+            }    
         }
     }
+    public enum LightType
+        {
+            A,
+            B,
+            C
+        }
+        
+        [Space]
+        [Header("Light Type")]
+        
+        public LightType Type;
+
+        public void DefineLightType()
+        {
+            switch (Type)
+            {
+                case LightType.A:
+                    animator.SetBool("A", true);
+                break;
+
+                case LightType.B:
+                    animator.SetBool("B", true);
+                break;
+
+                case LightType.C:
+                animator.SetBool("C", true);
+                break;
+
+                default:
+
+                break;
+            }
+        }
 }
