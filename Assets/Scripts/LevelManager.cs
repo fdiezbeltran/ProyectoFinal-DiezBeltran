@@ -5,13 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    //public Rigidbody2D rb;
+    public int nextLevel;
 
     private void OnTriggerEnter2D(Collider2D col) 
     {
             if(col.gameObject.CompareTag("Player"))
             {
-                SceneManager.LoadScene(2);
+                SceneManager.LoadScene(nextLevel);
             }
     }
 
