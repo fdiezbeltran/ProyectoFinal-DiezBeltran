@@ -79,7 +79,7 @@ public class Enemy : MonoBehaviour
     {
         Stand,
         Patrol,
-        Chase
+        Boss
     }
     
     [Space]
@@ -114,8 +114,8 @@ public class Enemy : MonoBehaviour
 
             break;
 
-            case EnemyType.Chase:
-                Debug.Log("deberia perseguirte");
+            case EnemyType.Boss:
+                
             break;
 
             default:
