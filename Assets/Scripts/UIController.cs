@@ -22,20 +22,9 @@ public class UIController : MonoBehaviour
     {
         uiMaxHealth = PlayerController.playerMaxHealth;
         currentHealth = PlayerController.uiHealth;
-        lifeBar.fillAmount =  currentHealth / uiMaxHealth;
-    
-        bossCurrentHealth = finalBoss.GetComponent<Enemy>().currentHealth;
-        bossLifeBar.fillAmount =  bossCurrentHealth / 1000;
-        
+        lifeBar.fillAmount =  currentHealth / uiMaxHealth;       
     }
-    [Space]
-    [Header("Barra de vida Jefe")]
-    public GameObject finalBoss;
-    public Image bossLifeBar;
-    public float bossCurrentHealth;
-
-
-
+    
     [Space]
     [Header("Pausa")]
     public GameObject pauseMenu;
