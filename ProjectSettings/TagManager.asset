@@ -9,6 +9,8 @@ TagManager:
   - Enemy
   - Level
   - Fireball
+  - LeftLimit
+  - RightLimit
   layers:
   - Default
   - TransparentFX
