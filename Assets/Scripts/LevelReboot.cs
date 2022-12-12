@@ -7,5 +7,16 @@ public class LevelReboot : MonoBehaviour
 {
     public PlayerController playerController;
 
-    
+    void Update() 
+    {
+        if(playerController.currentHealth < 0)
+        {
+            Invoke("RebootTheLevel",1);
+        }
+    }
+    void RebootTheLevel()
+    {
+        SceneManager.LoadScene(3);
+    }
+
 }

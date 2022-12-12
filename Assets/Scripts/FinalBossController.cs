@@ -87,6 +87,7 @@ public class FinalBossController : MonoBehaviour
             fightTime = 3;
         }
 
+        bossJumpPower = Random.Range(15,25);
         jumpTime += Time.deltaTime;
         if(bossGrounded)
         {
@@ -119,7 +120,7 @@ public class FinalBossController : MonoBehaviour
 
                     if(!rightDirection)
                     {
-                        rb.velocity = new Vector2(-6, rb.velocity.y);
+                        rb.velocity = new Vector2(Random.Range(-4, -8), rb.velocity.y);
                         if(jumpTime < 0.5f)
                         {
                             rb.velocity = new Vector2(rb.velocity.x, bossJumpPower);
@@ -130,7 +131,7 @@ public class FinalBossController : MonoBehaviour
                         }
                     }else
                     {
-                       rb.velocity = new Vector2(6, rb.velocity.y);
+                       rb.velocity = new Vector2(Random.Range(4, 8), rb.velocity.y);
                         if(jumpTime < 0.5f)
                         {
                             rb.velocity = new Vector2(rb.velocity.x, bossJumpPower);
@@ -162,7 +163,7 @@ public class FinalBossController : MonoBehaviour
                         rb.velocity = new Vector2(0, rb.velocity.y);
                         if(jumpTime < 0.5f)
                         {
-                            rb.velocity = new Vector2(rb.velocity.x, 7);
+                            rb.velocity = new Vector2(rb.velocity.x, 5);
                         }
                         if (rb.velocity.y > 0f)
                         {
@@ -183,9 +184,20 @@ public class FinalBossController : MonoBehaviour
 
             case 3:
                     rightPosition = false;
-                
-                    rb.MovePosition(transform.position + direction.normalized * speed * Time.fixedDeltaTime);
-                    if(centerPosition)
+                    if(fightTime < 33)
+                    {
+                        rb.MovePosition(transform.position + direction.normalized * speed * Time.fixedDeltaTime);
+                    }
+                    if(jumpTime < 0.5f)
+                        {
+                            rb.velocity = new Vector2(rb.velocity.x, bossJumpPower);
+                        }
+                        if (rb.velocity.y > 0f)
+                        {
+                            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.7f);
+                        }
+                    
+                    if(centerPosition && fightTime > 33)
                     {
                         //grita
                         if(escombroCooldown > escombroRate)
@@ -211,7 +223,16 @@ public class FinalBossController : MonoBehaviour
                             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.7f);
                         } 
                     }else
-                    {
+                    {   
+                        if(jumpTime < 0.5f)
+                        {
+                            rb.velocity = new Vector2(rb.velocity.x, 10);
+                        }
+                        if (rb.velocity.y > 0f)
+                        {
+                            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.7f);
+                        } 
+
                         if(escombroCooldown > escombroRate)
                         {
                             GameObject fireball = Instantiate(escombroPrefab, escombrosPositions[Random.Range(0,9)].position, Quaternion.identity);

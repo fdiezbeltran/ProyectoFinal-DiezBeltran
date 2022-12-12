@@ -13,6 +13,7 @@ TagManager:
   - RightLimit
   - Corona
   - Escombro
+  - FuegoAzul
   layers:
   - Default
   - TransparentFX

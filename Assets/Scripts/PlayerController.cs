@@ -383,6 +383,9 @@ public class PlayerController : MonoBehaviour
                 if(enemy.gameObject.CompareTag("Fireball"))
                 {
                     TakeDamage(enemy.GetComponent<Fireball>().attackDamage);
+                }if(enemy.gameObject.CompareTag("FuegoAzul"))
+                {
+                    TakeDamage(enemy.GetComponent<Fireball>().attackDamage);
                 }
                 if(enemy.gameObject.CompareTag("Escombro"))
                 {
@@ -434,6 +437,11 @@ public class PlayerController : MonoBehaviour
             foreach (Collider2D enemy in getBlock)
             {
                 StartCoroutine(BlockKnockback());
+
+                if(enemy.gameObject.CompareTag("FuegoAzul"))
+                {   
+                    currentHealth = currentHealth - 1;
+                }
             }
         
             Collider2D[] getHitBack = Physics2D.OverlapBoxAll(blockBackPoint.position, blockBackRange, 0f, enemyLayer);

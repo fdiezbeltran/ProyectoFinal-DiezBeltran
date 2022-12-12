@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour
     
 
     public int maxHealth = 100;
-    int currentHealth;
+    public int currentHealth;
     public int attackDamage = 20;
     //public Vector2 knockbackVelocity;
     public float disarmTime;
