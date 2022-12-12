@@ -384,6 +384,10 @@ public class PlayerController : MonoBehaviour
                 {
                     TakeDamage(enemy.GetComponent<Fireball>().attackDamage);
                 }
+                if(enemy.gameObject.CompareTag("Escombro"))
+                {
+                    TakeDamage(enemy.GetComponent<Escombro>().attackDamage);
+                }
             }
         }
     }

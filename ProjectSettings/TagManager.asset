@@ -11,6 +11,8 @@ TagManager:
   - Fireball
   - LeftLimit
   - RightLimit
+  - Corona
+  - Escombro
   layers:
   - Default
   - TransparentFX

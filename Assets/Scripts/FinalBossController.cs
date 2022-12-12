@@ -33,8 +33,16 @@ public class FinalBossController : MonoBehaviour
     [Header("State 3")]
     public Transform coronaSprite;
     Vector3 direction;
+    public Transform[] escombrosPositions = new Transform[10];
+    public GameObject escombroPrefab;
     public float speed;
     public bool centerPosition;
+    public float escombroCooldown;
+    public float escombroRate = 1;
+
+    [Space]
+    [Header("State 4")]
+    public bool leftPosition = false;
 
     
     //
@@ -62,10 +70,21 @@ public class FinalBossController : MonoBehaviour
         {
             stateBoss = 2;
         }
-
         if(fightTime > 30)
         {
             stateBoss = 3;
+        }
+        if(fightTime > 45)
+        {
+            stateBoss = 1;
+        }
+        if(fightTime > 60)
+        {
+            stateBoss = 4;
+        }
+        if(fightTime > 70)
+        {
+            fightTime = 3;
         }
 
         jumpTime += Time.deltaTime;
@@ -94,6 +113,10 @@ public class FinalBossController : MonoBehaviour
             break;
 
             case 1:
+                    leftPosition = false;
+                    rightPosition = false;
+                    centerPosition = false;
+
                     if(!rightDirection)
                     {
                         rb.velocity = new Vector2(-6, rb.velocity.y);
@@ -122,6 +145,7 @@ public class FinalBossController : MonoBehaviour
             break;
             
             case 2:
+                    centerPosition = false;
                     if(!rightPosition)
                     {
                         rb.velocity = new Vector2(6, rb.velocity.y);
@@ -159,19 +183,44 @@ public class FinalBossController : MonoBehaviour
 
             case 3:
                     rightPosition = false;
-                    if(!centerPosition)
+                
+                    rb.MovePosition(transform.position + direction.normalized * speed * Time.fixedDeltaTime);
+                    if(centerPosition)
                     {
-                        rb.MovePosition(transform.position + direction.normalized * speed * Time.fixedDeltaTime);
+                        //grita
+                        if(escombroCooldown > escombroRate)
+                        {
+                            GameObject fireball = Instantiate(escombroPrefab, escombrosPositions[Random.Range(0,9)].position, Quaternion.identity);
+                                                        
+                            escombroCooldown = 0;
+                        }
+                        escombroCooldown += Time.deltaTime;
+                    }
+            break;
+
+            case 4:
+                    if(!leftPosition)
+                    {
+                        rb.velocity = new Vector2(-6, rb.velocity.y);
+                        if(jumpTime < 0.5f)
+                        {
+                            rb.velocity = new Vector2(rb.velocity.x, bossJumpPower);
+                        }
+                        if (rb.velocity.y > 0f)
+                        {
+                            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.7f);
+                        } 
                     }else
                     {
-    
-                        rb.velocity = new Vector2(rb.velocity.x, 15);
-                        
-                        //if (rb.velocity.y > 0f)
-                        //{
-                       //     rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.7f);
-                        //}
+                        if(escombroCooldown > escombroRate)
+                        {
+                            GameObject fireball = Instantiate(escombroPrefab, escombrosPositions[Random.Range(0,9)].position, Quaternion.identity);
+                                                        
+                            escombroCooldown = 0;
+                        }
+                        escombroCooldown += Time.deltaTime;
                     }
+
             break;
 
             default:
@@ -194,6 +243,10 @@ public class FinalBossController : MonoBehaviour
     }
     void OnTriggerStay2D(Collider2D col) 
     {
+        if(col.gameObject.CompareTag("LeftLimit"))
+        {
+            leftPosition = true;
+        }
         if(col.gameObject.CompareTag("RightLimit"))
         {
             rightPosition = true;
