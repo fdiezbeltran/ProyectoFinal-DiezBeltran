@@ -419,6 +419,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Slime_Blank
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 64
+        width: 32
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33a5a89a081a7834e9575e5da7b65ce9
+      internalID: -1040318261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -438,6 +459,7 @@ TextureImporter:
       Slime_Idle_1: 1029365298
       Slime_Die_2: -963633707
       Slime_Die_5: 1757248032
+      Slime_Blank: -1040318261
       Slime_Hurt_2: -856237709
       Slime_Die_4: 1911422381
       Slime_Idle_2: -662122397

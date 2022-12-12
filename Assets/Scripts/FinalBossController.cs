@@ -6,17 +6,38 @@ public class FinalBossController : MonoBehaviour
    
 {
     public Rigidbody2D rb;
-    public Transform bossGroundCheck;
-    public LayerMask groundLayer;
 
 
     public int stateBoss;
     public float fightTime;
+
+    [Space]
+    [Header("State 1")]
+    public Transform bossGroundCheck;
+    public LayerMask groundLayer;
     public float jumpTime;
     public bool bossGrounded;
     public float bossJumpPower;
     public bool rightDirection = false;
+
+    [Space]
+    [Header("State 2")]
+    public Transform bossShootPoint;
+    public GameObject fireballPrefab;
     public bool rightPosition = false;
+    public float fireballCooldown;
+    public float fireballRate = 1;
+    float fireballVelocity = 15f;
+
+    [Space]
+    [Header("State 3")]
+    public Transform coronaSprite;
+    Vector3 direction;
+    public float speed;
+    public bool centerPosition;
+
+    
+    //
 
     //state 1 intro
     //state 2 jump
@@ -25,20 +46,24 @@ public class FinalBossController : MonoBehaviour
 
     void Start() 
     {
-        stateBoss = 1;
+        stateBoss = 0;
     }
 
     void Update() 
     {
         fightTime += Time.deltaTime;
-        HandleBossStates();
 
 
         if(fightTime > 3)
         {
-            stateBoss = 2;
+            stateBoss = 1;
         }
         if(fightTime > 15)
+        {
+            stateBoss = 2;
+        }
+
+        if(fightTime > 30)
         {
             stateBoss = 3;
         }
@@ -48,10 +73,13 @@ public class FinalBossController : MonoBehaviour
         {
             jumpTime = 0;
         }
+
+        direction = coronaSprite.position - transform.position;
     }
 
     void FixedUpdate()
     {
+        HandleBossStates();
         BossGroundCheck();
     }
 
@@ -59,13 +87,13 @@ public class FinalBossController : MonoBehaviour
     {
         switch (stateBoss)
         {
-            case 1:
+            case 0:
                     rb.velocity = new Vector2(0, rb.velocity.y);
                     //animacion grito
                     //audio grito
             break;
 
-            case 2:
+            case 1:
                     if(!rightDirection)
                     {
                         rb.velocity = new Vector2(-6, rb.velocity.y);
@@ -93,7 +121,7 @@ public class FinalBossController : MonoBehaviour
                     
             break;
             
-            case 3:
+            case 2:
                     if(!rightPosition)
                     {
                         rb.velocity = new Vector2(6, rb.velocity.y);
@@ -108,12 +136,42 @@ public class FinalBossController : MonoBehaviour
                     }else
                     {
                         rb.velocity = new Vector2(0, rb.velocity.y);
+                        if(jumpTime < 0.5f)
+                        {
+                            rb.velocity = new Vector2(rb.velocity.x, 7);
+                        }
+                        if (rb.velocity.y > 0f)
+                        {
+                            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.7f);
+                        } 
+                        if(fireballCooldown > fireballRate)
+                        {
+                            GameObject fireball = Instantiate(fireballPrefab, bossShootPoint.position, Quaternion.identity);
+                            fireball.GetComponent<Rigidbody2D>().velocity = new Vector2(-fireballVelocity, 0.0f);
+                            
+                            fireballCooldown = 0;
+                        }
+
+                        fireballCooldown += Time.deltaTime;
                     }
 
             break;
 
-            case 4:
-
+            case 3:
+                    rightPosition = false;
+                    if(!centerPosition)
+                    {
+                        rb.MovePosition(transform.position + direction.normalized * speed * Time.fixedDeltaTime);
+                    }else
+                    {
+    
+                        rb.velocity = new Vector2(rb.velocity.x, 15);
+                        
+                        //if (rb.velocity.y > 0f)
+                        //{
+                       //     rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.7f);
+                        //}
+                    }
             break;
 
             default:
@@ -139,9 +197,10 @@ public class FinalBossController : MonoBehaviour
         if(col.gameObject.CompareTag("RightLimit"))
         {
             rightPosition = true;
-        }else
+        }
+        if(col.gameObject.CompareTag("Corona"))
         {
-            rightPosition = false;
+            centerPosition = true;
         }
     }
 

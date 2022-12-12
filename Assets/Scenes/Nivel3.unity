@@ -2053,6 +2053,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &647793837
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 647793838}
+  m_Layer: 7
+  m_Name: BossShootPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &647793838
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647793837}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.09, y: -2.0000381, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1484887850}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &680602824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31154,7 +31185,7 @@ GameObject:
   - component: {fileID: 939083076}
   m_Layer: 0
   m_Name: DialogueContinueIcon
-  m_TagString: Untagged
+  m_TagString: Level
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31376,7 +31407,7 @@ Tilemap:
       - {fileID: -662740842, guid: 45995796e50c4e9439ecfd7e5765703a, type: 3}
       - {fileID: -665295825, guid: 45995796e50c4e9439ecfd7e5765703a, type: 3}
       - {fileID: 11468436, guid: 45995796e50c4e9439ecfd7e5765703a, type: 3}
-      m_AnimationSpeed: 7.757794
+      m_AnimationSpeed: 5.112749
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   m_TileAssetArray:
@@ -31544,7 +31575,7 @@ Tilemap:
       - {fileID: -662740842, guid: 45995796e50c4e9439ecfd7e5765703a, type: 3}
       - {fileID: -665295825, guid: 45995796e50c4e9439ecfd7e5765703a, type: 3}
       - {fileID: 11468436, guid: 45995796e50c4e9439ecfd7e5765703a, type: 3}
-      m_AnimationSpeed: 5.707592
+      m_AnimationSpeed: 7.9630966
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   m_TileAssetArray:
@@ -32139,7 +32170,7 @@ Tilemap:
       - {fileID: -662740842, guid: 45995796e50c4e9439ecfd7e5765703a, type: 3}
       - {fileID: -665295825, guid: 45995796e50c4e9439ecfd7e5765703a, type: 3}
       - {fileID: 11468436, guid: 45995796e50c4e9439ecfd7e5765703a, type: 3}
-      m_AnimationSpeed: 6.3841724
+      m_AnimationSpeed: 6.1794505
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   m_TileAssetArray:
@@ -32641,11 +32672,6 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
---- !u!4 &1354065116 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2453200760233820755, guid: 94724105308d2444889454f1e164ae70, type: 3}
-  m_PrefabInstance: {fileID: 1598678830}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1426075183
 GameObject:
   m_ObjectHideFlags: 0
@@ -33434,12 +33460,12 @@ GameObject:
   - component: {fileID: 1484887854}
   - component: {fileID: 1484887858}
   m_Layer: 7
-  m_Name: JefePrueba1
+  m_Name: FinalBoss
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1484887850
 Transform:
   m_ObjectHideFlags: 0
@@ -33453,8 +33479,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 366909258}
+  - {fileID: 647793838}
   m_Father: {fileID: 2107581581}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &1484887852
 Rigidbody2D:
@@ -33517,7 +33544,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: bb531f2d74967a34fa2ca31d0ded1021, type: 3}
   m_Color: {r: 0.5849056, g: 0.5849056, b: 0.5849056, a: 1}
   m_FlipX: 0
@@ -33711,6 +33738,8 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  bossShootPoint: {fileID: 647793838}
+  fireballPrefab: {fileID: 4059657920740454565, guid: 8d0086802a70d374ab8210a75464c920, type: 3}
   stateBoss: 0
   fightTime: 0
   jumpTime: 0
@@ -33718,6 +33747,8 @@ MonoBehaviour:
   bossJumpPower: 20
   rightDirection: 0
   rightPosition: 0
+  fireballCooldown: 0
+  fireballRate: 1
 --- !u!1 &1513100737
 GameObject:
   m_ObjectHideFlags: 0
@@ -33879,63 +33910,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1566386920}
   m_CullTransparentMesh: 1
---- !u!1001 &1598678830
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 2107581581}
-    m_Modifications:
-    - target: {fileID: 2453200760233820755, guid: 94724105308d2444889454f1e164ae70, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2453200760233820755, guid: 94724105308d2444889454f1e164ae70, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.0891428
-      objectReference: {fileID: 0}
-    - target: {fileID: 2453200760233820755, guid: 94724105308d2444889454f1e164ae70, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.44899353
-      objectReference: {fileID: 0}
-    - target: {fileID: 2453200760233820755, guid: 94724105308d2444889454f1e164ae70, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.108218536
-      objectReference: {fileID: 0}
-    - target: {fileID: 2453200760233820755, guid: 94724105308d2444889454f1e164ae70, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2453200760233820755, guid: 94724105308d2444889454f1e164ae70, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2453200760233820755, guid: 94724105308d2444889454f1e164ae70, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2453200760233820755, guid: 94724105308d2444889454f1e164ae70, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2453200760233820755, guid: 94724105308d2444889454f1e164ae70, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2453200760233820755, guid: 94724105308d2444889454f1e164ae70, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2453200760233820755, guid: 94724105308d2444889454f1e164ae70, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2453200760233820766, guid: 94724105308d2444889454f1e164ae70, type: 3}
-      propertyPath: m_Name
-      value: Slime
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 94724105308d2444889454f1e164ae70, type: 3}
 --- !u!1 &1614612069
 GameObject:
   m_ObjectHideFlags: 0
@@ -40417,7 +40391,7 @@ GameObject:
   - component: {fileID: 2044443732}
   m_Layer: 0
   m_Name: RejaSprite
-  m_TagString: Untagged
+  m_TagString: Level
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40543,7 +40517,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1354065116}
   - {fileID: 1484887850}
   m_Father: {fileID: 0}
   m_RootOrder: 6
