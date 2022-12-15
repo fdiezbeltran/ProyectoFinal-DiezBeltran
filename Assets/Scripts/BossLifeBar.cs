@@ -16,5 +16,10 @@ public class BossLifeBar : MonoBehaviour
     {
         bossCurrentHealth = finalBoss.GetComponent<Enemy>().currentHealth;
         bossLifeBar.fillAmount =  bossCurrentHealth / 1000;
+
+        if(bossCurrentHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }

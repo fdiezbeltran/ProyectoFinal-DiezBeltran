@@ -6,6 +6,8 @@ public class FinalBossController : MonoBehaviour
    
 {
     public Rigidbody2D rb;
+    public Animator animator;
+    public AudioSource audioSource;
 
 
     public int stateBoss;
@@ -25,6 +27,7 @@ public class FinalBossController : MonoBehaviour
     public Transform bossShootPoint;
     public GameObject fireballPrefab;
     public bool rightPosition = false;
+    public bool bossShooting = false;
     public float fireballCooldown;
     public float fireballRate = 1;
     float fireballVelocity = 15f;
@@ -61,8 +64,7 @@ public class FinalBossController : MonoBehaviour
     {
         fightTime += Time.deltaTime;
 
-
-        if(fightTime > 3)
+        if(fightTime > 2.5f)
         {
             stateBoss = 1;
         }
@@ -101,6 +103,7 @@ public class FinalBossController : MonoBehaviour
     {
         HandleBossStates();
         BossGroundCheck();
+        AnimationUpdate();
     }
 
     void HandleBossStates()
@@ -109,8 +112,8 @@ public class FinalBossController : MonoBehaviour
         {
             case 0:
                     rb.velocity = new Vector2(0, rb.velocity.y);
-                    //animacion grito
-                    //audio grito
+                    animator.SetTrigger("Shout");
+                    //PlaySound(clipShout);
             break;
 
             case 1:
@@ -159,7 +162,8 @@ public class FinalBossController : MonoBehaviour
                             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.7f);
                         } 
                     }else
-                    {
+                    {   
+                        bossShooting = true;
                         rb.velocity = new Vector2(0, rb.velocity.y);
                         if(jumpTime < 0.5f)
                         {
@@ -184,9 +188,12 @@ public class FinalBossController : MonoBehaviour
 
             case 3:
                     rightPosition = false;
-                    if(fightTime < 33)
+                    bossShooting = false;
+                    if(fightTime < 31)
                     {
                         rb.MovePosition(transform.position + direction.normalized * speed * Time.fixedDeltaTime);
+                        animator.SetTrigger("Shout");
+                        PlaySound(clipShout);
                     }
                     if(jumpTime < 0.5f)
                         {
@@ -196,7 +203,6 @@ public class FinalBossController : MonoBehaviour
                         {
                             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.7f);
                         }
-                    
                     if(centerPosition && fightTime > 33)
                     {
                         //grita
@@ -292,7 +298,22 @@ public class FinalBossController : MonoBehaviour
         }
     }
 
+    void AnimationUpdate()
+    {
+        animator.SetBool("IsGrounded", bossGrounded);
+        animator.SetFloat("JumpVelocity", rb.velocity.y);
+        animator.SetBool("IsShooting", bossShooting);
+    }
+    //animator.SetTrigger("Shout");
+    //animator.SetTrigger("Hurt");
 
+    [Space]
+    [Header("Final Boss Audio")]
+    public AudioClip clipShout;
 
-
+    public void PlaySound(AudioClip clip)
+    {
+        audioSource.clip = clip;
+        audioSource.Play();
+    }
 }
