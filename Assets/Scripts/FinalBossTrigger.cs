@@ -11,6 +11,7 @@ public class FinalBossTrigger : MonoBehaviour
         {   
             Debug.Log("se esta invokando");
             finalBossTrigger.Invoke();
+            Destroy(this);
         }
     }
 }
