@@ -154,17 +154,20 @@ public class PlayerController : MonoBehaviour
     }    
     public void Jump(InputAction.CallbackContext context)
     {
-        if (context.performed && isGrounded && !isBlocking  && !dialogueManager.dialogueIsPlaying)
+        if(!playerIsDead)
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
-        }
-        if (context.performed && airTime < 0.075f && !isJumping && !isBlocking  && !dialogueManager.dialogueIsPlaying)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
-        }
-        if (context.canceled && rb.velocity.y > 0f)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+            if (context.performed && isGrounded && !isBlocking  && !dialogueManager.dialogueIsPlaying)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+            }
+            if (context.performed && airTime < 0.075f && !isJumping && !isBlocking  && !dialogueManager.dialogueIsPlaying)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+            }
+            if (context.canceled && rb.velocity.y > 0f)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+            }
         }
     }
     void SetJumpAnimator()
@@ -233,31 +236,34 @@ public class PlayerController : MonoBehaviour
     }
     void HandleAttack()
     {
-        if(attackPressed && !dialogueManager.dialogueIsPlaying)
+        if(!playerIsDead)
         {
-            if (Time.time >= nextAttackTime && Time.time >= attackGlobalCooldown)
+            if(attackPressed && !dialogueManager.dialogueIsPlaying)
             {
-                animator.SetTrigger("AttackSword");
-                PlaySound(clipSword);
-                Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(swordPoint.position, swordRange, enemyLayer);
-
-                foreach (Collider2D enemy in hitEnemies)
+                if (Time.time >= nextAttackTime && Time.time >= attackGlobalCooldown)
                 {
-                    enemy.GetComponent<Enemy>().TakeDamage(attackDamage);
-                    hit.Play();
-                    if(isFacingRight)
+                    animator.SetTrigger("AttackSword");
+                    PlaySound(clipSword);
+                    Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(swordPoint.position, swordRange, enemyLayer);
+
+                    foreach (Collider2D enemy in hitEnemies)
                     {
-                        rb.MovePosition(new Vector2(rb.position.x - 0.15f, rb.position.y));
-                        enemy.GetComponent<Enemy>().EnemyHurtPush(true);
-                    }else                    
-                    {
-                        rb.MovePosition(new Vector2(rb.position.x + 0.15f, rb.position.y));
-                        enemy.GetComponent<Enemy>().EnemyHurtPush(false);
+                        enemy.GetComponent<Enemy>().TakeDamage(attackDamage);
+                        hit.Play();
+                        if(isFacingRight)
+                        {
+                            rb.MovePosition(new Vector2(rb.position.x - 0.15f, rb.position.y));
+                            enemy.GetComponent<Enemy>().EnemyHurtPush(true);
+                        }else                    
+                        {
+                            rb.MovePosition(new Vector2(rb.position.x + 0.15f, rb.position.y));
+                            enemy.GetComponent<Enemy>().EnemyHurtPush(false);
+                        }
                     }
+                    
+                    nextAttackTime = Time.time + 1f / attackRate;
+                    attackGlobalCooldown = Time.time + 1f / cooldownRate;
                 }
-                
-                nextAttackTime = Time.time + 1f / attackRate;
-                attackGlobalCooldown = Time.time + 1f / cooldownRate;
             }
         }
     }
@@ -275,17 +281,20 @@ public class PlayerController : MonoBehaviour
     }
     void HandleShield()
     {
-        if (secondaryPressed && isGrounded && !dialogueManager.dialogueIsPlaying)
+        if(!playerIsDead)
         {
-            speed = blockingSpeed;
-            isBlocking = true;
-            animator.SetBool("IsBlocking", isBlocking);
-        }
-        if (!secondaryPressed && isBlocking)
-        {
-            speed = movementSpeed;
-            isBlocking = false;
-            animator.SetBool("IsBlocking", isBlocking);
+            if (secondaryPressed && isGrounded && !dialogueManager.dialogueIsPlaying)
+            {
+                speed = blockingSpeed;
+                isBlocking = true;
+                animator.SetBool("IsBlocking", isBlocking);
+            }
+            if (!secondaryPressed && isBlocking)
+            {
+                speed = movementSpeed;
+                isBlocking = false;
+                animator.SetBool("IsBlocking", isBlocking);
+            }
         }
     }
     //Arco
@@ -302,34 +311,37 @@ public class PlayerController : MonoBehaviour
     }
     void HandleBow()
     {
-        if (bowPressed && !dialogueManager.dialogueIsPlaying)
-        {         
-            animator.SetBool("AttackBow", true);
-            isBowing = true;
-            speed = bowingSpeed;
-            if (Time.time >= nextBowTime && Time.time >= attackGlobalCooldown)
-            {   
-                if(isFacingRight)
-                {
-                    PlaySound(clipArrow);
-                    Invoke("ShotArrow", 0.2f);
-                    animator.SetTrigger("AttackBowT");
-                    nextBowTime = Time.time + 1f / bowAttackRate;
-                    attackGlobalCooldown = Time.time + 1f / cooldownRate;
-                }else
-                {
-                    PlaySound(clipArrow);
-                    Invoke("ShotArrowBack", 0.2f);
-                    animator.SetTrigger("AttackBowT");
-                    nextBowTime = Time.time + 1f / bowAttackRate;
-                    attackGlobalCooldown = Time.time + 1f / cooldownRate;
-                }
-            }
-        }else
+        if(!playerIsDead)
         {
-            animator.SetBool("AttackBow", false);
-            isBowing = false;
-            speed = movementSpeed;
+            if (bowPressed && !dialogueManager.dialogueIsPlaying)
+            {         
+                animator.SetBool("AttackBow", true);
+                isBowing = true;
+                speed = bowingSpeed;
+                if (Time.time >= nextBowTime && Time.time >= attackGlobalCooldown)
+                {   
+                    if(isFacingRight)
+                    {
+                        PlaySound(clipArrow);
+                        Invoke("ShotArrow", 0.2f);
+                        animator.SetTrigger("AttackBowT");
+                        nextBowTime = Time.time + 1f / bowAttackRate;
+                        attackGlobalCooldown = Time.time + 1f / cooldownRate;
+                    }else
+                    {
+                        PlaySound(clipArrow);
+                        Invoke("ShotArrowBack", 0.2f);
+                        animator.SetTrigger("AttackBowT");
+                        nextBowTime = Time.time + 1f / bowAttackRate;
+                        attackGlobalCooldown = Time.time + 1f / cooldownRate;
+                    }
+                }
+            }else
+            {
+                animator.SetBool("AttackBow", false);
+                isBowing = false;
+                speed = movementSpeed;
+            }
         }
     }
 
@@ -482,21 +494,27 @@ public class PlayerController : MonoBehaviour
     [Header("Player Respawn")]
 
     public Transform checkPoint;
+    public bool playerIsDead = false;
 
     public void Die()
     {   
-        canMove = false;
-        moveDirection = 0;
-        animator.SetFloat("horizontalAnim", 0f);
-        animator.SetBool("IsDead", true);
-        PlaySound(clipDie);
-        rb.velocity = Vector3.zero;
-        Invoke("Respawn", 1.5f);
+        if(!playerIsDead)
+        {
+            canMove = false;
+            moveDirection = 0;
+            animator.SetFloat("horizontalAnim", 0f);
+            animator.SetBool("IsDead", true);
+            PlaySound(clipDie);
+            rb.velocity = Vector3.zero;
+            playerIsDead = true;
+            Invoke("Respawn", 1.5f);
+        }
     }
     public void Respawn()
     {
         transform.position = checkPoint.transform.position;
         canMove = true;
+        playerIsDead = false;
         animator.SetFloat("horizontalAnim", 0f);
         animator.SetBool("IsDead", false);
         currentHealth = playerMaxHealth;

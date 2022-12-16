@@ -14,4 +14,14 @@ public class FinalBossTrigger : MonoBehaviour
             Destroy(this);
         }
     }
+
+    public AudioClip newMusic;
+    AudioSource audioSource;
+
+    public void ChangeMusic()
+    {
+        audioSource = GameObject.Find("MusicManager").GetComponent<AudioSource>();
+        audioSource.clip = newMusic;
+        audioSource.Play();
+    }
 }
