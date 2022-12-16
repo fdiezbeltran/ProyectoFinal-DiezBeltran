@@ -1,7 +1,7 @@
-¿Que pensabas? #name:Chester #portrait:chester_portrait
-¿Que podias venir y abrirme sin mi consentimiento?
-¿Que era un cofre sin sentimientos?
-No tengo ningun item para darte.
+¿Qué pensabas? #name:Chester #portrait:chester_portrait
+¿Qué podías venir y abrirme sin mi consentimiento?
+¿Qué era un cofre sin sentimientos?
+No tengo ningún ítem para darte.
 ...
-<i>Tal vez porque no esta desarrollada esa mecanica.</i>
+<i>Tal vez porque no está desarrollada esa mecánica.</i>
 -> END
